@@ -1,4 +1,7 @@
 ﻿using System;
+using Library.BasicTypes;
+using Library.BasicTypes.Operators;
+using Library.Interfaces;
 using Library.Logic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

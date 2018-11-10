@@ -3,16 +3,16 @@ using Library.BasicTypes.Operators;
 using Library.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Library.Logic.Finders;
+using System.Diagnostics;
 
 namespace Library.Logic
 {
     public class GraphExplorer
     {
         public INode RootNode { get; private set; }
+        
+        public IFinder Finder { get; set; }
 
         private static Dictionary<char, SingletonOperator> knownOperators =
             new Dictionary<char, SingletonOperator>()
@@ -41,6 +41,26 @@ namespace Library.Logic
                     throw new InvalidOperationException($"Operator {op} is not known to explorer.");
             }
             return graphExplorer;
+        }
+        public bool IsRootNode(INode node)
+        {
+            return node.Parent == null;
+        }
+        public byte[] TraverseForSolution()
+        {
+            try
+            {
+                INode solution = Finder.FindSolution(RootNode);
+                if (solution != null)
+                    return solution.State.State;
+                return null;
+            }
+            catch(Exception)
+            {
+                Trace.TraceError("Exception caught during Find process.");
+                Trace.Flush();
+            }
+            return null;
         }
         private GraphExplorer() { }
     }
