@@ -1,28 +1,15 @@
 ﻿using Library.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.BasicTypes.Operators
 {
-    class DownOperator : IOperator
+    public class DownOperator : IOperator
     {
         #region singleton
-        private DownOperator instance = null;
+        private static readonly Lazy<DownOperator> instance =
+            new Lazy<DownOperator>(() => new DownOperator());
 
-        public IOperator Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new DownOperator();
-                }
-                return instance;
-            }
-        }
+        public IOperator Instance => instance.Value;
         #endregion
 
         private DownOperator() { }

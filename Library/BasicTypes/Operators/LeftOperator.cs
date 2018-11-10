@@ -10,19 +10,10 @@ namespace Library.BasicTypes.Operators
     public class LeftOperator : IOperator
     {
         #region singleton
-        private LeftOperator instance = null;
+        private static readonly Lazy<LeftOperator> instance =
+            new Lazy<LeftOperator>(() => new LeftOperator());
 
-        public IOperator Instance
-        {
-            get
-            {
-                if(instance == null)
-                {
-                    instance = new LeftOperator();
-                }
-                return instance;
-            }
-        }
+        public IOperator Instance => instance.Value;
         #endregion
 
         private LeftOperator() { }

@@ -7,22 +7,13 @@ using System.Threading.Tasks;
 
 namespace Library.BasicTypes.Operators
 {
-    class UpOperator : IOperator
+    public class UpOperator : IOperator
     {
         #region singleton
-        private UpOperator instance = null;
+        private static readonly Lazy<UpOperator> instance =
+            new Lazy<UpOperator>(() => new UpOperator());
 
-        public IOperator Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new UpOperator();
-                }
-                return instance;
-            }
-        }
+        public IOperator Instance => instance.Value;
         #endregion
 
         private UpOperator() { }

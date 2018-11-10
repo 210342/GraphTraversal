@@ -6,19 +6,10 @@ namespace Library.BasicTypes.Operators
     public class RightOperator : IOperator
     {
         #region singleton
-        private static RightOperator instance = null;
+        private static readonly Lazy<RightOperator> instance =
+            new Lazy<RightOperator>(() => new RightOperator());
 
-        public IOperator Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new RightOperator();
-                }
-                return instance;
-            }
-        }
+        public IOperator Instance => instance.Value;
         #endregion
 
         private RightOperator() { }
