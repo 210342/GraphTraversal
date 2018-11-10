@@ -10,7 +10,7 @@ namespace Library.BasicTypes.Operators
     public class LeftOperator : IOperator
     {
         #region singleton
-        private LeftOperator instance = null;
+        private static LeftOperator instance = null;
 
         public IOperator Instance
         {
