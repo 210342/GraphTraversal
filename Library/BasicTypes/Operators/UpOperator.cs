@@ -10,7 +10,7 @@ namespace Library.BasicTypes.Operators
     class UpOperator : IOperator
     {
         #region singleton
-        private UpOperator instance = null;
+        private static UpOperator instance = null;
 
         public IOperator Instance
         {
