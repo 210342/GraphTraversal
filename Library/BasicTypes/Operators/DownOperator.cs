@@ -3,18 +3,18 @@ using System;
 
 namespace Library.BasicTypes.Operators
 {
-    public class DownOperator : IOperator
+    public class DownOperator : SingletonOperator
     {
         #region singleton
         private static readonly Lazy<DownOperator> instance =
             new Lazy<DownOperator>(() => new DownOperator());
 
-        public IOperator Instance => instance.Value;
+        public new static IOperator Instance => instance.Value;
         #endregion
 
         private DownOperator() { }
 
-        public INode Move(INode node)
+        public override INode Move(INode node)
         {
             sbyte zeroIndex = node.State.ZeroIndex;
             int size = (int)Math.Sqrt(node.State.StateSize);

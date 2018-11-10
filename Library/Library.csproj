@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasicTypes\Operators\SingletonOperator.cs" />
     <Compile Include="BasicTypes\Operators\DownOperator.cs" />
     <Compile Include="BasicTypes\Operators\LeftOperator.cs" />
     <Compile Include="BasicTypes\Operators\RightOperator.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Interfaces\IOperator.cs" />
     <Compile Include="Interfaces\IState.cs" />
     <Compile Include="BasicTypes\Node.cs" />
+    <Compile Include="Logic\GraphExplorer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BasicTypes\NodeState.cs" />
   </ItemGroup>

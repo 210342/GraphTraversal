@@ -3,18 +3,18 @@ using Library.Interfaces;
 
 namespace Library.BasicTypes.Operators
 {
-    public class RightOperator : IOperator
+    public class RightOperator : SingletonOperator
     {
         #region singleton
         private static readonly Lazy<RightOperator> instance =
             new Lazy<RightOperator>(() => new RightOperator());
 
-        public IOperator Instance => instance.Value;
+        public new static IOperator Instance => instance.Value;
         #endregion
 
         private RightOperator() { }
 
-        public INode Move(INode node)
+        public override INode Move(INode node)
         {
             sbyte zeroIndex = node.State.ZeroIndex;
             int size = (int)Math.Sqrt(node.State.StateSize);
