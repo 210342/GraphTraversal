@@ -6,7 +6,7 @@ namespace Library.BasicTypes.Operators
     public class RightOperator : IOperator
     {
         #region singleton
-        private RightOperator instance = null;
+        private static RightOperator instance = null;
 
         public IOperator Instance
         {
