@@ -7,27 +7,18 @@ using System.Threading.Tasks;
 
 namespace Library.BasicTypes.Operators
 {
-    public class UpOperator : IOperator
+    public class UpOperator : SingletonOperator
     {
         #region singleton
-        private static UpOperator instance = null;
+        private static readonly Lazy<UpOperator> instance =
+            new Lazy<UpOperator>(() => new UpOperator());
 
-        public IOperator Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new UpOperator();
-                }
-                return instance;
-            }
-        }
+        public new static IOperator Instance => instance.Value;
         #endregion
 
         private UpOperator() { }
 
-        public INode Move(INode node)
+        public override INode Move(INode node)
         {
             sbyte zeroIndex = node.State.ZeroIndex;
             int size = (int)Math.Sqrt(node.State.StateSize);

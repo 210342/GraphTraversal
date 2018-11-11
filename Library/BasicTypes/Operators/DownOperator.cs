@@ -1,33 +1,20 @@
 ﻿using Library.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.BasicTypes.Operators
 {
-    class DownOperator : IOperator
+    public class DownOperator : SingletonOperator
     {
         #region singleton
-        private DownOperator instance = null;
+        private static readonly Lazy<DownOperator> instance =
+            new Lazy<DownOperator>(() => new DownOperator());
 
-        public IOperator Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new DownOperator();
-                }
-                return instance;
-            }
-        }
+        public new static IOperator Instance => instance.Value;
         #endregion
 
         private DownOperator() { }
 
-        public INode Move(INode node)
+        public override INode Move(INode node)
         {
             sbyte zeroIndex = node.State.ZeroIndex;
             int size = (int)Math.Sqrt(node.State.StateSize);

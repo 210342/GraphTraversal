@@ -8,7 +8,6 @@ namespace Library.Interfaces
 {
     public interface IOperator
     {
-        IOperator Instance { get; }
         INode Move(INode node);
     }
 }
