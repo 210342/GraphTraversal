@@ -8,11 +8,10 @@ namespace Library.BasicTypes
         public IState State { get; }
         public INode Parent { get; }
         public IOperator LastOperation { get; }
-        //public INode[] Children { get; set; }
         public int Depth { get; }
         public int SummedCost { get; set; }
 
-        public IList<INode> Children => new List<INode>();
+       // public IList<INode> Children => new List<INode>();
 
         public Node(INode parent, IOperator operation, IState state, int depth)
         {

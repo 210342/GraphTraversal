@@ -6,6 +6,7 @@ namespace Library.Logic.Finders
 {
     public class AbstractFinder
     {
+        /*
         protected void FindChildren(INode node, List<IOperator> operatorsSequence)
         {
             if (node.Children == null)
@@ -27,25 +28,20 @@ namespace Library.Logic.Finders
                 result.ForEach( n => node.Children.Add(n) );
             }
         }
-
+        */
         protected INode FindChild(INode node, IOperator op)
         {
-            if(node.Children != null)
+            INode child;
+            IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
+            if (op != reverseOp)
             {
-                INode child;
-                IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
-                if (op != reverseOp)
-                {
-                    child = op.Move(node);
-                    node.Children.Add(child);
-                }
-                else
-                {
-                    child = null;
-                }
-                return child;
+                child = op.Move(node);
             }
-            return null;
+            else
+            {
+                child = null;
+            }
+            return child;
         }
 
         protected bool CheckIfSolution(INode node)
