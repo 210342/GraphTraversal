@@ -52,6 +52,7 @@
     <Compile Include="BasicTypes\Node.cs" />
     <Compile Include="Logic\GraphExplorer.cs" />
     <Compile Include="Logic\Finders\IFinder.cs" />
+    <Compile Include="Logic\OperatorsCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BasicTypes\NodeState.cs" />
   </ItemGroup>
