@@ -51,6 +51,8 @@ namespace Library.Logic.Finders
                         kid.SummedCost = node.SummedCost + HeuristicFunction(kid);
                         (Frontier as Stack<INode>).Push(kid);
                         Explored.Add(kid);
+                        if (CheckIfSolution(kid))
+                            break;
                     }
                 }
                 node = (Frontier as Stack<INode>).Pop();

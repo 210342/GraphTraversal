@@ -45,6 +45,8 @@ namespace Library.Logic.Finders
                         kid.SummedCost = node.SummedCost + HeuristicFunction(kid);
                         (Frontier as Queue<INode>).Enqueue(kid);
                         Explored.Add(kid);
+                        if (CheckIfSolution(kid))
+                            break;
                     }
                 }
                 node = (Frontier as Queue<INode>).Dequeue();
