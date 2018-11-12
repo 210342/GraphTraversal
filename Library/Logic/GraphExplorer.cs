@@ -15,7 +15,7 @@ namespace Library.Logic
         
         public IFinder Finder { get; set; }
 
-        private static OperatorsCollection knownOperators = new OperatorsCollection();
+        private static OperatorsCollection knownOperators = OperatorsCollection.Instance;
         private List<IOperator> operatorsSequence = new List<IOperator>();
 
         public static GraphExplorer CreateGraphExplorer(byte[] loadedRoot, char[] operations)

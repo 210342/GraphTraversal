@@ -7,16 +7,23 @@ namespace Library.Logic
 {
     internal class OperatorsCollection
     {
-        private static Dictionary<char, Type> knownOperators =
-            new Dictionary<char, Type>()
+        private static Lazy<OperatorsCollection> _instance = 
+            new Lazy<OperatorsCollection>(() => new OperatorsCollection());
+
+        public static OperatorsCollection Instance => _instance.Value;
+        private OperatorsCollection() { }
+
+        private static Dictionary<char, (Type, char)> knownOperators =
+            new Dictionary<char, (Type, char)>()
             {
-                {'l', typeof(LeftOperator) },
-                {'r', typeof(RightOperator) },
-                {'u', typeof(UpOperator) },
-                {'d', typeof(DownOperator) }
+                {'l', (typeof(LeftOperator), 'u') },
+                {'r', (typeof(RightOperator), 'l') },
+                {'u', (typeof(UpOperator), 'd') },
+                {'d', (typeof(DownOperator), 'u') }
             };
         private static Dictionary<char, SingletonOperator>
             instances = new Dictionary<char, SingletonOperator>();
+
         public SingletonOperator this[char key]
         {
             get
@@ -25,10 +32,10 @@ namespace Library.Logic
                 {
                     return op;
                 }
-                if (knownOperators.TryGetValue(key, out Type opType))
+                if (knownOperators.TryGetValue(key, out (Type, char) opType))
                 {
                     var retType = opType;
-                    var propinstance = opType.GetProperty("Instance", System.Reflection.BindingFlags.Public |
+                    var propinstance = opType.Item1.GetProperty("Instance", System.Reflection.BindingFlags.Public |
                         System.Reflection.BindingFlags.Static);
                     var instance = propinstance.GetGetMethod().Invoke(null, null);
                     instances.Add(key, (SingletonOperator)instance);
@@ -37,5 +44,15 @@ namespace Library.Logic
                 return null;
             }
         }
+        public static SingletonOperator GetReverse(Type op)
+        {
+            foreach(var el in knownOperators)
+            {
+                if (el.Value.Item1.Equals(op))
+                    return OperatorsCollection.Instance[el.Value.Item2];
+            }
+            return null;
+        }
+
     }
 }
