@@ -53,7 +53,9 @@ namespace Library.Logic
         {
             try
             {
+                operatorsSequence.ForEach(n => Finder.AddOperator(n));
                 INode solution = Finder.FindSolution(RootNode);
+                Finder.ClearOperators();
                 if (solution != null)
                     return solution.State.State;
                 return null;
