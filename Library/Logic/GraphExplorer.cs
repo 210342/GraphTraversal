@@ -8,6 +8,8 @@ using System.Diagnostics;
 
 namespace Library.Logic
 {
+    public delegate int Heuristic(INode node);
+
     public class GraphExplorer
     {
         public INode RootNode { get; private set; }
@@ -29,7 +31,7 @@ namespace Library.Logic
         {
             GraphExplorer graphExplorer = new GraphExplorer();
             IState state = new NodeState(loadedRoot);
-            INode node = new Node(null, null, state);
+            INode node = new Node(null, null, state, depth: 0);
             graphExplorer.RootNode = node;
             foreach(char op in operations)
             {
@@ -42,15 +44,17 @@ namespace Library.Logic
             }
             return graphExplorer;
         }
+
         public bool IsRootNode(INode node)
         {
             return node.Parent == null;
         }
+
         public byte[] TraverseForSolution()
         {
             try
             {
-                INode solution = Finder.FindSolution(RootNode);
+                INode solution = Finder.FindSolution(RootNode, operatorsSequence);
                 if (solution != null)
                     return solution.State.State;
                 return null;
@@ -62,6 +66,7 @@ namespace Library.Logic
             }
             return null;
         }
+
         private GraphExplorer() { }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Library.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.BasicTypes.Operators
 {
@@ -16,6 +12,7 @@ namespace Library.BasicTypes.Operators
         public new static IOperator Instance => instance.Value;
         #endregion
 
+        public override char Representation { get { return 'u'; } }
         private UpOperator() { }
 
         public override INode Move(INode node)
@@ -27,7 +24,7 @@ namespace Library.BasicTypes.Operators
                 IState state = node.State.CloneSwap((byte)zeroIndex, (byte)(zeroIndex - size));
                 INode parent = node;
                 IOperator lastOperator = Instance;
-                return new Node(parent, lastOperator, state);
+                return new Node(parent, lastOperator, state, node.Depth + 1);
             }
             return null;
         }

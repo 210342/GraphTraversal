@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Interfaces
 {
@@ -10,7 +7,11 @@ namespace Library.Interfaces
     {
         IState State { get; }
         INode Parent { get; }
-        IEnumerable<INode> Children { get; }
+        INode[] Children { get; }
         IOperator LastOperation { get; }
+        int Depth { get; }
+        int SummedCost { get; set; }
+
+        void FindChildren(List<IOperator> operatorSequence);
     }
 }

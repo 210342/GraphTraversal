@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Library.Interfaces
+﻿namespace Library.Interfaces
 {
     public interface IOperator
     {
+        char Representation { get; }
         INode Move(INode node);
     }
 }

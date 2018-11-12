@@ -16,6 +16,8 @@ namespace Library.BasicTypes.Operators
         public new static IOperator Instance => instance.Value;
         #endregion
 
+        public override char Representation { get { return 'l'; } }
+
         private LeftOperator() { }
 
         public override INode Move(INode node)
@@ -26,7 +28,7 @@ namespace Library.BasicTypes.Operators
                 IState state = node.State.CloneSwap((byte)zeroIndex, (byte)(zeroIndex - 1));
                 INode parent = node;
                 IOperator lastOperator = Instance;
-                return new Node(parent, lastOperator, state);
+                return new Node(parent, lastOperator, state, node.Depth + 1);
             }
             return null;
         }
