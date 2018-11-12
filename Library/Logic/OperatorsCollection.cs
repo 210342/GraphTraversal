@@ -1,4 +1,5 @@
 ﻿using Library.BasicTypes.Operators;
+using Library.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -44,14 +45,11 @@ namespace Library.Logic
                 return null;
             }
         }
-        public static SingletonOperator GetReverse(Type op)
+        public static SingletonOperator GetReverse(IOperator op)
         {
-            foreach(var el in knownOperators)
-            {
-                if (el.Value.Item1.Equals(op))
-                    return OperatorsCollection.Instance[el.Value.Item2];
-            }
-            return null;
+            if (op == null)
+                return null;
+            return Instance[knownOperators[op.Representation].Item2];
         }
 
     }

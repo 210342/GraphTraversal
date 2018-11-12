@@ -14,11 +14,7 @@ namespace Library.Logic.Finders
                 INode[] result = new INode[opCount];
                 for (int i = 0; i < opCount; ++i)
                 {
-                    IOperator reverseOp;
-                    if (node.LastOperation != null)
-                        reverseOp = OperatorsCollection.GetReverse(node.LastOperation.GetType());
-                    else
-                        reverseOp = null;
+                    IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
                     if (operatorsSequence[i] != reverseOp)
                     {
                         result[i] = operatorsSequence[i].Move(node);
