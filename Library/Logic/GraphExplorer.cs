@@ -16,6 +16,7 @@ namespace Library.Logic
         
         public IFinder Finder { get; set; }
 
+        /*
         private static Dictionary<char, SingletonOperator> knownOperators =
             new Dictionary<char, SingletonOperator>()
             {
@@ -24,7 +25,8 @@ namespace Library.Logic
                 {'u', (SingletonOperator)UpOperator.Instance },
                 {'d', (SingletonOperator)DownOperator.Instance }
             };
-
+            */
+        private static OperatorsCollection knownOperators = new OperatorsCollection();
         private List<IOperator> operatorsSequence = new List<IOperator>();
 
         public static GraphExplorer CreateGraphExplorer(byte[] loadedRoot, char[] operations)
@@ -35,9 +37,10 @@ namespace Library.Logic
             graphExplorer.RootNode = node;
             foreach(char op in operations)
             {
-                if (knownOperators.TryGetValue(op, out SingletonOperator toAdd))
+                var currOp = knownOperators[op];
+                if (currOp != null)
                 {
-                    graphExplorer.operatorsSequence.Add(toAdd);
+                    graphExplorer.operatorsSequence.Add(currOp);
                 }
                 else
                     throw new InvalidOperationException($"Operator {op} is not known to explorer.");
@@ -55,6 +58,7 @@ namespace Library.Logic
             try
             {
                 INode solution = Finder.FindSolution(RootNode, operatorsSequence);
+                Finder.ClearOperators();
                 if (solution != null)
                     return solution.State.State;
                 return null;
