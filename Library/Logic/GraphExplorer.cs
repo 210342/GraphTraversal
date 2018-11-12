@@ -1,5 +1,4 @@
 ﻿using Library.BasicTypes;
-using Library.BasicTypes.Operators;
 using Library.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -16,16 +15,6 @@ namespace Library.Logic
         
         public IFinder Finder { get; set; }
 
-        /*
-        private static Dictionary<char, SingletonOperator> knownOperators =
-            new Dictionary<char, SingletonOperator>()
-            {
-                {'l', (SingletonOperator)LeftOperator.Instance },
-                {'r', (SingletonOperator)RightOperator.Instance },
-                {'u', (SingletonOperator)UpOperator.Instance },
-                {'d', (SingletonOperator)DownOperator.Instance }
-            };
-            */
         private static OperatorsCollection knownOperators = new OperatorsCollection();
         private List<IOperator> operatorsSequence = new List<IOperator>();
 
@@ -58,7 +47,6 @@ namespace Library.Logic
             try
             {
                 INode solution = Finder.FindSolution(RootNode, operatorsSequence);
-                // Finder.ClearOperators();
                 if (solution != null)
                     return solution.State.State;
                 return null;

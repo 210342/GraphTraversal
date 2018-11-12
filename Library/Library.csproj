@@ -50,9 +50,9 @@
     <Compile Include="Interfaces\IOperator.cs" />
     <Compile Include="Interfaces\IState.cs" />
     <Compile Include="BasicTypes\Node.cs" />
+    <Compile Include="Logic\Finders\AbstractFinder.cs" />
     <Compile Include="Logic\Finders\BFS.cs" />
     <Compile Include="Logic\Finders\DFS.cs" />
-    <Compile Include="Logic\Finders\SolutionChecker.cs" />
     <Compile Include="Logic\GraphExplorer.cs" />
     <Compile Include="Logic\Finders\IFinder.cs" />
     <Compile Include="Logic\OperatorsCollection.cs" />

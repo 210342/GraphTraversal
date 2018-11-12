@@ -7,7 +7,7 @@ using Library.Interfaces;
 
 namespace Library.Logic.Finders
 {
-    public class DFS : SolutionChecker, IFinder
+    public class DFS : AbstractFinder, IFinder
     {
         private int depth = 0;
         private readonly int _depthLimit = 20;
@@ -42,8 +42,8 @@ namespace Library.Logic.Finders
             // repeat
             while (!CheckIfSolution(node))
             {
-                node.FindChildren(operatorsSequence);
-                for (int i = 0; i < 4; ++i)
+                FindChildren(node, operatorsSequence);
+                for (int i = 0; i < operatorsSequence.Count; ++i)
                 {
                     INode kid = node.Children[i];
                     if (kid != null && !Explored.Contains(kid) && kid.Depth <= _depthLimit)
