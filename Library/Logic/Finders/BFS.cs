@@ -35,13 +35,12 @@ namespace Library.Logic.Finders
             // add neighbours to frontier
             // take first from Frontier
             // repeat
-            while(!CheckIfSolution(node))
+            while (!CheckIfSolution(node))
             {
-                FindChildren(node, operatorsSequence);
-                for(int i = 0; i < operatorsSequence.Count; ++i)
+                foreach(IOperator op in operatorsSequence)
                 {
-                    INode kid = node.Children[i];
-                    if(kid != null && !Explored.Contains(kid))
+                    INode kid = FindChild(node, op);
+                    if (kid != null && !Explored.Contains(kid))
                     {
                         kid.SummedCost = node.SummedCost + HeuristicFunction(kid);
                         (Frontier as Queue<INode>).Enqueue(kid);

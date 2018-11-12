@@ -40,12 +40,12 @@ namespace Library.Logic.Finders
             // add neighbours to frontier
             // take last from Frontier
             // repeat
+
             while (!CheckIfSolution(node))
             {
-                FindChildren(node, operatorsSequence);
-                for (int i = 0; i < operatorsSequence.Count; ++i)
+                foreach (IOperator op in operatorsSequence)
                 {
-                    INode kid = node.Children[i];
+                    INode kid = FindChild(node, op);
                     if (kid != null && !Explored.Contains(kid) && kid.Depth <= _depthLimit)
                     {
                         kid.SummedCost = node.SummedCost + HeuristicFunction(kid);

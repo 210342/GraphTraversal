@@ -11,22 +11,43 @@ namespace Library.Logic.Finders
             if (node.Children == null)
             {
                 int opCount = operatorsSequence.Count();
-                INode[] result = new INode[opCount];
+                List<INode> result = new List<INode>();
                 for (int i = 0; i < opCount; ++i)
                 {
                     IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
                     if (operatorsSequence[i] != reverseOp)
                     {
-                        result[i] = operatorsSequence[i].Move(node);
+                        result.Add(operatorsSequence[i].Move(node));
                     }
                     else
                     {
-                        result[i] = null;
+
                     }
                 }
-                node.Children = result;
+                result.ForEach( n => node.Children.Add(n) );
             }
         }
+
+        protected INode FindChild(INode node, IOperator op)
+        {
+            if(node.Children != null)
+            {
+                INode child;
+                IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
+                if (op != reverseOp)
+                {
+                    child = op.Move(node);
+                    node.Children.Add(child);
+                }
+                else
+                {
+                    child = null;
+                }
+                return child;
+            }
+            return null;
+        }
+
         protected bool CheckIfSolution(INode node)
         {
             for (int i = 0; i < node.State.StateSize - 1; ++i) // ignore last element - if 15 elements are in their place, the last one is as well
