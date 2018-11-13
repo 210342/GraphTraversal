@@ -16,11 +16,7 @@ namespace Library.Logic.Finders.Tests
                 (puzzle,
                 new char[] { 'u', 'd', 'l', 'r' });
             explorer.Finder = new DFS();
-            byte[] sol = explorer.TraverseForSolution();
-            foreach (byte bt in sol)
-            {
-                Console.WriteLine(bt);
-            }
+            var sol = explorer.TraverseForSolution();
             Assert.IsNotNull(sol);
         }
     }

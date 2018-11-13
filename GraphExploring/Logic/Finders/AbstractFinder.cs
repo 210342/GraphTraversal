@@ -66,6 +66,7 @@ namespace GraphExploring.Logic.Finders
                 return op.Move(node);
             return null;
         }
+
         protected bool CheckIfSolution(INode node)
         {
             for(byte i = 0; i < node.State.StateSize; ++i)

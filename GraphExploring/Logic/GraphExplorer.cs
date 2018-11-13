@@ -3,6 +3,7 @@ using Library.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 
 namespace GraphExploring.Logic
 {
@@ -37,13 +38,22 @@ namespace GraphExploring.Logic
             return node.Parent == null;
         }
 
-        public byte[] TraverseForSolution()
+        public string TraverseForSolution()
         {
+            StringBuilder sb = new StringBuilder();
             try
             {
                 INode solution = Finder.FindSolution(RootNode, operatorsSequence);
                 if (solution != null)
-                    return solution.State.State;
+                {
+                    var currNode = solution;
+                    while(currNode.Parent != null)
+                    {
+                        sb.Append(currNode.LastOperation.Representation);
+                        currNode = currNode.Parent;
+                    }
+                    return sb.ToString();
+                }
                 return null;
             }
             catch(Exception e)
