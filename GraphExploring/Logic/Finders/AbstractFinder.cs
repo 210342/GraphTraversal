@@ -7,7 +7,7 @@ namespace GraphExploring.Logic.Finders
 {
     public abstract class AbstractFinder : IFinder
     {
-        private readonly byte[] expectedSolution = new byte[]
+        public byte[] ExpectedSolution { get; } = new byte[]
         {
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0
         };
@@ -69,7 +69,7 @@ namespace GraphExploring.Logic.Finders
 
         protected bool CheckIfSolution(INode node)
         {
-           return node.State.State.SequenceEqual(expectedSolution);
+           return node.State.State.SequenceEqual(ExpectedSolution);
         }
         #endregion
     }

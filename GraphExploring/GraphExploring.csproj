@@ -44,6 +44,9 @@
     <Compile Include="Logic\Finders\AbstractFinder.cs" />
     <Compile Include="Logic\Finders\BFS.cs" />
     <Compile Include="Logic\Finders\DFS.cs" />
+    <Compile Include="Logic\Finders\HeuristicDistance\Hamming.cs" />
+    <Compile Include="Logic\Finders\HeuristicDistance\HeuristicProvider.cs" />
+    <Compile Include="Logic\Finders\HeuristicDistance\Manhattan.cs" />
     <Compile Include="Logic\GraphExplorer.cs" />
     <Compile Include="Logic\OperatorsCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
