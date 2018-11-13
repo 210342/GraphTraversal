@@ -6,29 +6,23 @@ namespace Library.Logic.Finders
 {
     public class AbstractFinder
     {
-        /*
-        protected void FindChildren(INode node, List<IOperator> operatorsSequence)
+        [System.Obsolete("Method is obsolelte, please use FindChild with respect to single operator." +
+             " Makes the whole searching process slightly less consuming.")]
+        protected IList<INode> FindChildren(INode node, List<IOperator> operatorsSequence)
         {
-            if (node.Children == null)
+            int opCount = operatorsSequence.Count();
+            List<INode> result = new List<INode>();
+            for (int i = 0; i < opCount; ++i)
             {
-                int opCount = operatorsSequence.Count();
-                List<INode> result = new List<INode>();
-                for (int i = 0; i < opCount; ++i)
+                IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
+                if (operatorsSequence[i] != reverseOp)
                 {
-                    IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
-                    if (operatorsSequence[i] != reverseOp)
-                    {
-                        result.Add(operatorsSequence[i].Move(node));
-                    }
-                    else
-                    {
-
-                    }
+                    result.Add(operatorsSequence[i].Move(node));
                 }
-                result.ForEach( n => node.Children.Add(n) );
             }
+            return result;
         }
-        */
+        
         protected INode FindChild(INode node, IOperator op)
         {
             INode child;
