@@ -61,17 +61,10 @@ namespace GraphExploring.Logic.Finders
         
         protected INode FindChild(INode node, IOperator op)
         {
-            INode child;
             IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
             if (op != reverseOp)
-            {
-                child = op.Move(node);
-            }
-            else
-            {
-                child = null;
-            }
-            return child;
+                return op.Move(node);
+            return null;
         }
 
         protected bool CheckIfSolution(INode node)
