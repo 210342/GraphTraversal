@@ -1,4 +1,5 @@
 ﻿using Library.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,9 +30,9 @@ namespace GraphExploring.Logic.Finders
 
         public int MaximumDepthReached { get; set; }
 
-        public abstract Heuristic HeuristicFunction { get; }
+        public abstract Func<INode, int> HeuristicFunction { get; }
 
-        public abstract FindAlgorithm FindSolution { get; }
+        public abstract Func<INode, List<IOperator>, INode> FindSolution { get; }
         #endregion
 
 

@@ -9,9 +9,9 @@ namespace GraphExploring.Logic.Finders
 
         public override IReadOnlyCollection<INode> Frontier { get; } = new Stack<INode>();
 
-        public override Heuristic HeuristicFunction => (_) => 1;
+        public override System.Func<INode, List<IOperator>, INode> FindSolution => Algorithm;
 
-        public override FindAlgorithm FindSolution => Algorithm;
+        public override System.Func<INode, int> HeuristicFunction => (_) => 1;
 
         public INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {

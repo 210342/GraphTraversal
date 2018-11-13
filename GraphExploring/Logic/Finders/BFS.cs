@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Library.Interfaces;
 
 namespace GraphExploring.Logic.Finders
@@ -7,9 +8,9 @@ namespace GraphExploring.Logic.Finders
     {
         public override IReadOnlyCollection<INode> Frontier { get; } = new Queue<INode>();
 
-        public override FindAlgorithm FindSolution => Algorithm;
+        public override Func<INode, List<IOperator>, INode> FindSolution => Algorithm;
 
-        public override Heuristic HeuristicFunction => (_) => 1;
+        public override Func<INode, int> HeuristicFunction => (_) => 1;
 
         public INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {
