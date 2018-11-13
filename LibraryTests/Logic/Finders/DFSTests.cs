@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Library.Logic.Finders;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GraphExploring.Logic;
+using GraphExploring.Logic.Finders;
 
 namespace Library.Logic.Finders.Tests
 {

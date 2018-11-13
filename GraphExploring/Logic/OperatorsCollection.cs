@@ -2,9 +2,8 @@
 using Library.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 
-namespace Library.Logic
+namespace GraphExploring.Logic
 {
     internal class OperatorsCollection
     {

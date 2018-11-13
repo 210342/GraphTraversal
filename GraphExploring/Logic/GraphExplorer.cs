@@ -2,13 +2,10 @@
 using Library.Interfaces;
 using System;
 using System.Collections.Generic;
-using Library.Logic.Finders;
 using System.Diagnostics;
 
-namespace Library.Logic
+namespace GraphExploring.Logic
 {
-    public delegate int Heuristic(INode node);
-
     public class GraphExplorer
     {
         public INode RootNode { get; private set; }

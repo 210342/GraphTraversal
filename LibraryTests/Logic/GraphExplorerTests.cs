@@ -1,13 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Library.Logic;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Library.BasicTypes;
 using Library.BasicTypes.Operators;
 using Library.Interfaces;
+using GraphExploring.Logic;
 
 namespace Library.Logic.Tests
 {

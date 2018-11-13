@@ -2,10 +2,40 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Library.Logic.Finders
+namespace GraphExploring.Logic.Finders
 {
-    public class AbstractFinder
+    public abstract class AbstractFinder : IFinder
     {
+        #region Properties
+        private int depth = 0;
+        public abstract IReadOnlyCollection<INode> Frontier { get; }
+
+        public HashSet<INode> Explored { get; } = new HashSet<INode>();
+        public int Depth
+        {
+            get
+            {
+                return depth;
+            }
+            set
+            {
+                depth = value;
+                if (value > MaximumDepthReached)
+                {
+                    MaximumDepthReached = value;
+                }
+            }
+        }
+
+        public int MaximumDepthReached { get; set; }
+
+        public abstract Heuristic HeuristicFunction { get; }
+
+        public abstract FindAlgorithm FindSolution { get; }
+        #endregion
+
+
+        #region Helping Methods  
         [System.Obsolete("Method is obsolelte, please use FindChild with respect to single operator." +
              " Makes the whole searching process slightly less consuming.")]
         protected IList<INode> FindChildren(INode node, List<IOperator> operatorsSequence)
@@ -49,5 +79,6 @@ namespace Library.Logic.Finders
             }
             return true;
         }
+        #endregion
     }
 }

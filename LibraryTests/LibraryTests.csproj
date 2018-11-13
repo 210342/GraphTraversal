@@ -62,6 +62,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GraphExploring\GraphExploring.csproj">
+      <Project>{1be071e3-2757-471f-837a-383d603c8743}</Project>
+      <Name>GraphExploring</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{F174D1E9-CC5C-4C64-9BF4-5CA980E0E737}</Project>
       <Name>Library</Name>
