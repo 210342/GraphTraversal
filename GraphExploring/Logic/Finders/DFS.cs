@@ -5,7 +5,7 @@ namespace GraphExploring.Logic.Finders
 {
     public class DFS : AbstractFinder, IFinder
     {
-        private readonly int _depthLimit = 20;
+        private readonly int _depthLimit = 15;
 
         public override IReadOnlyCollection<INode> Frontier { get; } = new Stack<INode>();
 
