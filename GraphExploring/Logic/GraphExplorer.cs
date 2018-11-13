@@ -40,6 +40,14 @@ namespace GraphExploring.Logic
 
         public string TraverseForSolution()
         {
+            string Reverse(string text)
+            {
+                if (text == null) return null;
+                char[] array = text.ToCharArray();
+                Array.Reverse(array);
+                return new string(array);
+            }
+
             StringBuilder sb = new StringBuilder();
             try
             {
@@ -52,7 +60,7 @@ namespace GraphExploring.Logic
                         sb.Append(currNode.LastOperation.Representation);
                         currNode = currNode.Parent;
                     }
-                    return sb.ToString();
+                    return Reverse(sb.ToString());
                 }
                 return null;
             }
