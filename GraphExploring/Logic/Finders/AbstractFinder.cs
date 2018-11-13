@@ -7,6 +7,11 @@ namespace GraphExploring.Logic.Finders
 {
     public abstract class AbstractFinder : IFinder
     {
+        private readonly byte[] expectedSolution = new byte[]
+        {
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0
+        };
+
         #region Properties
         private int depth = 0;
         public abstract IReadOnlyCollection<INode> Frontier { get; }
@@ -71,14 +76,7 @@ namespace GraphExploring.Logic.Finders
 
         protected bool CheckIfSolution(INode node)
         {
-            for (int i = 0; i < node.State.StateSize - 1; ++i) // ignore last element - if 15 elements are in their place, the last one is as well
-            {
-                if (node.State.State[i] != i + 1)
-                {
-                    return false;
-                }
-            }
-            return true;
+           return node.State.State.SequenceEqual(expectedSolution);
         }
         #endregion
     }
