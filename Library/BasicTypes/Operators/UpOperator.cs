@@ -19,7 +19,7 @@ namespace Library.BasicTypes.Operators
         {
             sbyte zeroIndex = node.State.ZeroIndex;
             int size = (int)Math.Sqrt(node.State.StateSize);
-            if (zeroIndex < size)
+            if (zeroIndex > size)
             {
                 IState state = node.State.CloneSwap((byte)zeroIndex, (byte)(zeroIndex - size));
                 INode parent = node;

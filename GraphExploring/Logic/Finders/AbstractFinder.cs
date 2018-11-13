@@ -66,11 +66,21 @@ namespace GraphExploring.Logic.Finders
                 return op.Move(node);
             return null;
         }
-
+        protected bool CheckIfSolution(INode node)
+        {
+            for(byte i = 0; i < node.State.StateSize; ++i)
+            {
+                if (node.State.State[i] != ExpectedSolution[i])
+                    return false;
+            }
+            return true;
+        }
+        /*
         protected bool CheckIfSolution(INode node)
         {
            return node.State.State.SequenceEqual(ExpectedSolution);
         }
+        */
         #endregion
     }
 }

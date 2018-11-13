@@ -11,8 +11,9 @@ namespace Library.Logic.Finders.Tests
         [TestMethod()]
         public void FindSolutionTest()
         {
+            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 6, 0, 8, 10, 11, 7, 12, 9, 13, 14, 15 };
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer
-                (new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 0, 15 },
+                (puzzle,
                 new char[] { 'u', 'd', 'l', 'r' });
             explorer.Finder = new BFS();
             byte[] sol = explorer.TraverseForSolution();
@@ -22,7 +23,6 @@ namespace Library.Logic.Finders.Tests
             }*/
             Assert.IsNotNull(sol);
         }
-
         [TestMethod()]
         public void NoSolutionTest()
         {

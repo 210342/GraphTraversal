@@ -22,17 +22,18 @@ namespace GraphExploring.Logic
 
         public static IOperator GetOperator(char key)
         {
-            if (instances.TryGetValue(key, out SingletonOperator op))
+            char lowerCaseKey = char.ToLower(key);
+            if (instances.TryGetValue(lowerCaseKey, out SingletonOperator op))
             {
                 return op;
             }
-            if (knownOperators.TryGetValue(key, out (Type, char) opType))
+            if (knownOperators.TryGetValue(lowerCaseKey, out (Type, char) opType))
             {
                 var retType = opType;
                 var propinstance = opType.Item1.GetProperty("Instance", System.Reflection.BindingFlags.Public |
                     System.Reflection.BindingFlags.Static);
                 var instance = propinstance.GetGetMethod().Invoke(null, null);
-                instances.Add(key, (SingletonOperator)instance);
+                instances.Add(lowerCaseKey, (SingletonOperator)instance);
                 return (SingletonOperator)instance;
             }
             return null;

@@ -46,9 +46,9 @@ namespace GraphExploring.Logic
                     return solution.State.State;
                 return null;
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                Trace.TraceError("Exception caught during Find process.");
+                Trace.TraceError("Exception caught during Find process. " + e.Message);
                 Trace.Flush();
             }
             return null;
