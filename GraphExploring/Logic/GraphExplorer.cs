@@ -11,8 +11,6 @@ namespace GraphExploring.Logic
         public INode RootNode { get; private set; }
         
         public IFinder Finder { get; set; }
-
-        private static OperatorsCollection knownOperators = OperatorsCollection.Instance;
         private List<IOperator> operatorsSequence = new List<IOperator>();
 
         public static GraphExplorer CreateGraphExplorer(byte[] loadedRoot, char[] operations)
@@ -23,7 +21,7 @@ namespace GraphExploring.Logic
             graphExplorer.RootNode = node;
             foreach(char op in operations)
             {
-                var currOp = knownOperators[op];
+                var currOp = OperatorsCollection.GetOperator(op);
                 if (currOp != null)
                 {
                     graphExplorer.operatorsSequence.Add(currOp);

@@ -16,10 +16,10 @@ namespace Library.Logic.Finders.Tests
                 new char[] { 'u', 'd', 'l', 'r' });
             explorer.Finder = new BFS();
             byte[] sol = explorer.TraverseForSolution();
-            foreach(byte bt in sol)
+            /*foreach(byte bt in sol)
             {
                 Console.WriteLine(bt);
-            }
+            }*/
             Assert.IsNotNull(sol);
         }
 
