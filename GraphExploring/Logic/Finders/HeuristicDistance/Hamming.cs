@@ -14,7 +14,7 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
             for(byte i = 0; i < SolutionToFind.Length; ++i)
             {
                 if (node.State.State[i] != SolutionToFind[i]
-                    && node.State.State[i] != 0)
+                    && node.State.State[i] != 0 && SolutionToFind[i] != 0)
                 {
                     ++misplaced;
                 }
