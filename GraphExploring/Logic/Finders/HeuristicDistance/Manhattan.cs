@@ -15,10 +15,14 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
             int sum = 0;
             for (byte i = 0; i < SolutionToFind.Length; ++i)
             {
-                var (originx, originy) = TranslateCoordinate(SolutionToFind[i]);
-                var (currentx, currenty) = TranslateCoordinate(node.State.State[i]);
-                sum += System.Math.Abs(originx - currentx) + 
-                    System.Math.Abs(originy - currenty);
+                if(node.State.State[i] != 0 && SolutionToFind[i] != 0)
+                {
+                    var (originx, originy) = TranslateCoordinate(SolutionToFind[i]);
+                    var (currentx, currenty) = TranslateCoordinate(node.State.State[i]);
+                    sum += System.Math.Abs(originx - currentx) +
+                        System.Math.Abs(originy - currenty);
+                }
+                
             }
             return sum;
         }
