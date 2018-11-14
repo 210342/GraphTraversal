@@ -56,6 +56,11 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BasicTypes\Operators\DownOperatorTests.cs" />
+    <Compile Include="BasicTypes\Operators\LeftOperatorTests.cs" />
+    <Compile Include="BasicTypes\Operators\RightOperatorTests.cs" />
+    <Compile Include="BasicTypes\Operators\UpOperatorTests.cs" />
+    <Compile Include="Logic\Finders\AStarTests.cs" />
     <Compile Include="Logic\Finders\BFSTests.cs" />
     <Compile Include="Logic\Finders\DFSTests.cs" />
     <Compile Include="Logic\GraphExplorerTests.cs" />

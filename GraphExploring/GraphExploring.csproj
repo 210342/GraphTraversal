@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logic\Finders\AbstractFinder.cs" />
+    <Compile Include="Logic\Finders\AStar.cs" />
     <Compile Include="Logic\Finders\BFS.cs" />
     <Compile Include="Logic\Finders\DFS.cs" />
     <Compile Include="Logic\Finders\HeuristicDistance\Hamming.cs" />

@@ -4,8 +4,8 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
 {
     public class Manhattan : HeuristicProvider
     {
-        private byte sideSize = 0;
-        public Manhattan(AbstractFinder finder) : base(finder)
+        private readonly byte sideSize = 0;
+        public Manhattan(byte[] solution) : base(solution)
         {
             sideSize = (byte)System.Math.Sqrt(SolutionToFind.Length);
         }

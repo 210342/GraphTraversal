@@ -54,7 +54,7 @@ namespace GraphExploring.Logic
                 INode solution = Finder.FindSolution(RootNode, operatorsSequence);
                 if (solution != null)
                 {
-                    var currNode = solution;
+                    INode currNode = solution;
                     while(currNode.Parent != null)
                     {
                         sb.Append(currNode.LastOperation.Representation);

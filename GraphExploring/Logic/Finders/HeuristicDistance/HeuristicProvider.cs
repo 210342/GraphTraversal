@@ -5,10 +5,12 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
     public abstract class HeuristicProvider
     {
         protected byte[] SolutionToFind { get; private set; }
-        protected HeuristicProvider(AbstractFinder finder)
+
+        protected HeuristicProvider(byte[] solution)
         {
-            this.SolutionToFind = finder.ExpectedSolution;
+            SolutionToFind = solution;
         }
+
         public abstract int Heuristic(INode node);
     }
 }

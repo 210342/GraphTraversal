@@ -5,7 +5,7 @@ namespace GraphExploring.Logic.Finders
 {
     public class DFS : AbstractFinder, IFinder
     {
-        private readonly int _depthLimit = 15;
+        private readonly int _depthLimit = 20;
 
         public override IReadOnlyCollection<INode> Frontier { get; } = new Stack<INode>();
 
@@ -32,8 +32,6 @@ namespace GraphExploring.Logic.Finders
                         kid.SummedCost = node.SummedCost + HeuristicFunction(kid);
                         (Frontier as Stack<INode>).Push(kid);
                         Explored.Add(kid);
-                        if (CheckIfSolution(kid))
-                            break;
                     }
                 }
                 node = (Frontier as Stack<INode>).Pop();

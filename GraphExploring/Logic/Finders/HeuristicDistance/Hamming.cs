@@ -2,9 +2,9 @@
 
 namespace GraphExploring.Logic.Finders.HeuristicDistance
 {
-    class Hamming : HeuristicProvider
+    public class Hamming : HeuristicProvider
     {
-        public Hamming(AbstractFinder finder) : base(finder)
+        public Hamming(byte[] solution) : base(solution)
         {
         }
 
@@ -15,7 +15,9 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
             {
                 if (node.State.State[i] != SolutionToFind[i]
                     && node.State.State[i] != 0)
+                {
                     ++misplaced;
+                }
             }
             return misplaced;
         }

@@ -22,7 +22,7 @@ namespace Library.BasicTypes.Operators
 
         public override INode Move(INode node)
         {
-            sbyte zeroIndex = node.State.ZeroIndex;
+            byte zeroIndex = node.State.ZeroIndex;
             if(zeroIndex % (int)Math.Sqrt(node.State.StateSize) != 0)
             {
                 IState state = node.State.CloneSwap((byte)zeroIndex, (byte)(zeroIndex - 1));

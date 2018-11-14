@@ -3,7 +3,7 @@ using System;
 using GraphExploring.Logic;
 using GraphExploring.Logic.Finders;
 
-namespace Library.Logic.Finders.Tests
+namespace GraphExploring.Logic.Finders.Tests
 {
     [TestClass()]
     public class DFSTests
@@ -16,8 +16,8 @@ namespace Library.Logic.Finders.Tests
                 (puzzle,
                 new char[] { 'u', 'd', 'l', 'r' });
             explorer.Finder = new DFS();
-            var sol = explorer.TraverseForSolution();
-            Assert.IsNotNull(sol);
+            string sol = explorer.TraverseForSolution();
+            Assert.IsFalse(string.IsNullOrEmpty(sol));
         }
     }
 }
