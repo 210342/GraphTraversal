@@ -10,18 +10,11 @@ namespace GraphExploring.Logic.Finders.Tests
         [TestMethod()]
         public void FindSolutionTest()
         {
-            //byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 6, 0, 8, 10, 11, 7, 12, 9, 13, 14, 15 }; 
             byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 13, 6, 7, 10, 0, 11, 8, 9, 14, 15, 12 };
-            //byte[] puzzle = new byte[] { 0, 2, 3, 4, 1, 6, 7, 8, 5, 10, 11, 12, 9, 13, 14, 15 };
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer
                 (puzzle,
-                new char[] { 'u', 'd', 'l', 'r' });
-            explorer.Finder = new BFS();
+                new char[] { 'u', 'd', 'l', 'r' }, new BFS());
             var sol = explorer.TraverseForSolution();
-            /*foreach(byte bt in sol)
-            {
-                Console.WriteLine(bt);
-            }*/
             System.Console.WriteLine(sol);
             Assert.IsNotNull(sol);
         }

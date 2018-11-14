@@ -26,11 +26,11 @@ namespace GraphExploring.Logic.Finders.Tests
         [TestMethod()]
         public void AlgorithmHammingHeuristicTest()
         {
-            GraphExplorer explorer = GraphExplorer.CreateGraphExplorer(
-                new byte[] { 0, 2, 3, 4, 1, 6, 7, 8, 5, 10, 11, 12, 9, 13, 14, 15 }, 
-                new char[] { 'u', 'd', 'l', 'r' });
+            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 13, 6, 7, 10, 0, 11, 8, 9, 14, 15, 12 };
             HeuristicProvider heuristicProvider = new Hamming(solution);
-            explorer.Finder = new AStar(heuristicProvider);
+            GraphExplorer explorer = GraphExplorer.CreateGraphExplorer(
+                puzzle,
+                new char[] { 'u', 'd', 'l', 'r' }, new AStar(heuristicProvider));
             string sol = explorer.TraverseForSolution();
             Assert.IsFalse(string.IsNullOrEmpty(sol));
         }
@@ -38,11 +38,11 @@ namespace GraphExploring.Logic.Finders.Tests
         [TestMethod()]
         public void AlgorithmManhattanHeuristicTest()
         {
-            GraphExplorer explorer = GraphExplorer.CreateGraphExplorer(
-                new byte[] { 0, 2, 3, 4, 1, 6, 7, 8, 5, 10, 11, 12, 9, 13, 14, 15 },
-                new char[] { 'u', 'd', 'l', 'r' });
+            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 13, 6, 7, 10, 0, 11, 8, 9, 14, 15, 12 };
             HeuristicProvider heuristicProvider = new Manhattan(solution);
-            explorer.Finder = new AStar(heuristicProvider);
+            GraphExplorer explorer = GraphExplorer.CreateGraphExplorer(
+                puzzle,
+                new char[] { 'u', 'd', 'l', 'r' }, new AStar(heuristicProvider));
             string sol = explorer.TraverseForSolution();
             Assert.IsFalse(string.IsNullOrEmpty(sol));
         }

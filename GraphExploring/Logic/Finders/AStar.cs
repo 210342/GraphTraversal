@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GraphExploring.Logic.Finders
 {
-    public class AStar : AbstractFinder, IFinder
+    public class AStar : AbstractFinder
     {
         private readonly LinkedList<INode> frontier = new LinkedList<INode>();
 

@@ -32,6 +32,12 @@ namespace GraphExploring.Logic
             }
             return graphExplorer;
         }
+        public static GraphExplorer CreateGraphExplorer(byte[] loadedRoot, char[] operations, IFinder finder)
+        {
+            var explorer = CreateGraphExplorer(loadedRoot, operations);
+            explorer.Finder = finder;
+            return explorer;
+        }
 
         public bool IsRootNode(INode node)
         {
@@ -40,6 +46,8 @@ namespace GraphExploring.Logic
 
         public string TraverseForSolution()
         {
+            if (Finder == null)
+                throw new InvalidOperationException("Can't traverse with null finder, please assign Finder property.");
             string Reverse(string text)
             {
                 if (text == null) return null;

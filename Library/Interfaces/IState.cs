@@ -10,7 +10,7 @@ namespace Library.Interfaces
     {
         byte StateSize { get; }
         byte[] State { get; }
-        byte ZeroIndex { get; set; }
+        byte ZeroIndex { get; }
 
         IState CloneSwap(byte i1, byte i2);
         

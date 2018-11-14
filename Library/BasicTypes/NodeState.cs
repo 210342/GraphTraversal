@@ -8,7 +8,7 @@ namespace Library.BasicTypes
 
         public byte StateSize => (byte)State.Length;
 
-        public byte ZeroIndex { get; set; }
+        public byte ZeroIndex { get; private set; }
 
         public NodeState(byte[] state)
         {
@@ -40,7 +40,7 @@ namespace Library.BasicTypes
             byte old = newClone.State[zeroIndex];
             newClone.State[zeroIndex] = newClone.State[otherIndex];
             newClone.State[otherIndex] = old;
-            newClone.ZeroIndex = otherIndex; // it's other index since it's swapped
+            ((NodeState)newClone).ZeroIndex = otherIndex; // it's other index since it's swapped
             return newClone;
         }
     }

@@ -14,8 +14,7 @@ namespace GraphExploring.Logic.Finders.Tests
             byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 13, 6, 7, 10, 0, 11, 8, 9, 14, 15, 12 };
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer
                 (puzzle,
-                new char[] { 'u', 'd', 'l', 'r' });
-            explorer.Finder = new DFS();
+                new char[] { 'u', 'd', 'l', 'r' }, new DFS());
             string sol = explorer.TraverseForSolution();
             Assert.IsFalse(string.IsNullOrEmpty(sol));
         }
