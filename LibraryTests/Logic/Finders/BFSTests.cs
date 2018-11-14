@@ -10,7 +10,7 @@ namespace GraphExploring.Logic.Finders.Tests
         [TestMethod()]
         public void FindSolutionTest()
         {
-            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 13, 6, 7, 10, 0, 11, 8, 9, 14, 15, 12 };
+            byte[] puzzle = new byte[] { 2, 5, 3, 4, 1, 7, 11, 8, 10, 6, 14, 0, 9, 13, 15, 12 };
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer
                 (puzzle,
                 new char[] { 'u', 'd', 'l', 'r' }, new BFS());

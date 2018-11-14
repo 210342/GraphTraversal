@@ -13,6 +13,5 @@ namespace Library.Interfaces
         byte ZeroIndex { get; }
 
         IState CloneSwap(byte i1, byte i2);
-        
     }
 }

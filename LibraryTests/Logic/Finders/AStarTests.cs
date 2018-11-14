@@ -26,19 +26,20 @@ namespace GraphExploring.Logic.Finders.Tests
         [TestMethod()]
         public void AlgorithmHammingHeuristicTest()
         {
-            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 13, 6, 7, 10, 0, 11, 8, 9, 14, 15, 12 };
+            byte[] puzzle = new byte[] { 2, 5, 3, 4, 1, 7, 11, 8, 10, 6, 14, 0, 9, 13, 15, 12 };
             HeuristicProvider heuristicProvider = new Hamming(solution);
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer(
                 puzzle,
                 new char[] { 'u', 'd', 'l', 'r' }, new AStar(heuristicProvider));
             string sol = explorer.TraverseForSolution();
+            System.Console.WriteLine(sol);
             Assert.IsFalse(string.IsNullOrEmpty(sol));
         }
 
         [TestMethod()]
         public void AlgorithmManhattanHeuristicTest()
         {
-            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 13, 6, 7, 10, 0, 11, 8, 9, 14, 15, 12 };
+            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 10, 13, 11, 12, 9, 14, 0, 15 };
             HeuristicProvider heuristicProvider = new Manhattan(solution);
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer(
                 puzzle,

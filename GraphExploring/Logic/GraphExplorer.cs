@@ -16,6 +16,9 @@ namespace GraphExploring.Logic
 
         public static GraphExplorer CreateGraphExplorer(byte[] loadedRoot, char[] operations)
         {
+            HashSet<byte> bytesFiltered = new HashSet<byte>(loadedRoot);
+            if (bytesFiltered.Count != loadedRoot.Length)
+                throw new InvalidOperationException("Numbers arent unique.");
             GraphExplorer graphExplorer = new GraphExplorer();
             IState state = new NodeState(loadedRoot);
             INode node = new Node(null, null, state, depth: 0);
@@ -68,7 +71,7 @@ namespace GraphExploring.Logic
                         sb.Append(currNode.LastOperation.Representation);
                         currNode = currNode.Parent;
                     }
-                    return Reverse(sb.ToString());
+                    return Reverse(sb.ToString()).ToUpper();
                 }
                 return null;
             }
