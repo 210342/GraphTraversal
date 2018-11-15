@@ -14,12 +14,6 @@ namespace GraphExploring.Logic.Finders
 
         public INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {
-            // check if its the solution
-            // get neighbours
-            // add neighbours to explored
-            // add neighbours to frontier
-            // take first from Frontier
-            // repeat
             while (!CheckIfSolution(node))
             {
                 foreach(IOperator op in operatorsSequence)
@@ -27,7 +21,6 @@ namespace GraphExploring.Logic.Finders
                     INode kid = FindChild(node, op);
                     if (kid != null && !Explored.Contains(kid))
                     {
-                        kid.SummedCost = node.SummedCost + HeuristicFunction(kid);
                         (Frontier as Queue<INode>).Enqueue(kid);
                         Explored.Add(kid);
                     }

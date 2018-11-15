@@ -15,13 +15,6 @@ namespace GraphExploring.Logic.Finders
 
         public INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {
-            // check if its the solution
-            // get neighbours
-            // add neighbours to explored
-            // add neighbours to frontier
-            // take last from Frontier
-            // repeat
-
             while (!CheckIfSolution(node))
             {
                 foreach (IOperator op in operatorsSequence)
@@ -29,7 +22,6 @@ namespace GraphExploring.Logic.Finders
                     INode kid = FindChild(node, op);
                     if (kid != null && !Explored.Contains(kid) && kid.Depth <= _depthLimit)
                     {
-                        kid.SummedCost = node.SummedCost + HeuristicFunction(kid);
                         (Frontier as Stack<INode>).Push(kid);
                         Explored.Add(kid);
                     }

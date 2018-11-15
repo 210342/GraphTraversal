@@ -22,13 +22,6 @@ namespace GraphExploring.Logic.Finders
 
         public INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {
-            // check if its the solution
-            // get neighbours
-            // add neighbours to explored
-            // add neighbours to frontier
-            // take last from Frontier
-            // repeat
-
             frontier.AddFirst(node);
             while (!CheckIfSolution(node))
             {

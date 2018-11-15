@@ -9,10 +9,15 @@ namespace GraphExploring.Logic
 {
     public class GraphExplorer
     {
-        public INode RootNode { get; private set; }
-        
-        public IFinder Finder { get; set; }
         private List<IOperator> operatorsSequence = new List<IOperator>();
+        private readonly Stopwatch stopwatch = new Stopwatch();
+
+        public INode RootNode { get; private set; }
+        public IFinder Finder { get; set; }
+        public int Explored { get { return Finder.Explored.Count - Finder.Frontier.Count; } }
+        public int Visited { get { return Finder.Explored.Count; } }
+        public int MaximumRecursionDepth { get { return Finder.MaximumDepthReached; } }
+        public long TimeSpanInNanoseconds { get; private set; }
 
         public static GraphExplorer CreateGraphExplorer(byte[] loadedRoot, char[] operations)
         {
@@ -50,35 +55,43 @@ namespace GraphExploring.Logic
         public string TraverseForSolution()
         {
             if (Finder == null)
+            {
                 throw new InvalidOperationException("Can't traverse with null finder, please assign Finder property.");
+            }
+
+            INode solution = null;
+            try
+            {
+                stopwatch.Start();
+                solution = Finder.FindSolution(RootNode, operatorsSequence);
+                stopwatch.Stop();
+                long nanosecPerTick = (1000000000) / Stopwatch.Frequency;
+                TimeSpanInNanoseconds = stopwatch.ElapsedTicks * nanosecPerTick;
+            }
+            catch(Exception e)
+            {
+                Trace.TraceError("Exception caught during Find process. " + e.Message);
+                Trace.Flush();
+                stopwatch.Stop();
+            }
+
+            StringBuilder sb = new StringBuilder();
+            if (solution != null)
+            {
+                INode currNode = solution;
+                while (currNode.Parent != null)
+                {
+                    sb.Append(currNode.LastOperation.Representation);
+                    currNode = currNode.Parent;
+                }
+                return Reverse(sb.ToString()).ToUpper();
+            }
             string Reverse(string text)
             {
                 if (text == null) return null;
                 char[] array = text.ToCharArray();
                 Array.Reverse(array);
                 return new string(array);
-            }
-
-            StringBuilder sb = new StringBuilder();
-            try
-            {
-                INode solution = Finder.FindSolution(RootNode, operatorsSequence);
-                if (solution != null)
-                {
-                    INode currNode = solution;
-                    while(currNode.Parent != null)
-                    {
-                        sb.Append(currNode.LastOperation.Representation);
-                        currNode = currNode.Parent;
-                    }
-                    return Reverse(sb.ToString()).ToUpper();
-                }
-                return null;
-            }
-            catch(Exception e)
-            {
-                Trace.TraceError("Exception caught during Find process. " + e.Message);
-                Trace.Flush();
             }
             return null;
         }

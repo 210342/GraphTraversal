@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryTests", "LibraryTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphExploring", "GraphExploring\GraphExploring.csproj", "{1BE071E3-2757-471F-837A-383D603C8743}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphTraversal", "GraphTraversal\GraphTraversal.csproj", "{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{1BE071E3-2757-471F-837A-383D603C8743}.Release|x64.Build.0 = Release|Any CPU
 		{1BE071E3-2757-471F-837A-383D603C8743}.Release|x86.ActiveCfg = Release|Any CPU
 		{1BE071E3-2757-471F-837A-383D603C8743}.Release|x86.Build.0 = Release|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Debug|x64.Build.0 = Debug|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Debug|x86.Build.0 = Debug|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Release|x64.ActiveCfg = Release|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Release|x64.Build.0 = Release|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Release|x86.ActiveCfg = Release|Any CPU
+		{8A2280CB-3AEA-4316-B0D4-A47D41B8A7F1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

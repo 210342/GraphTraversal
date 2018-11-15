@@ -4,9 +4,11 @@ using Library.BasicTypes;
 using Library.BasicTypes.Operators;
 using Library.Interfaces;
 using GraphExploring.Logic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Library.Logic.Tests
 {
+    [ExcludeFromCodeCoverage]
     [TestClass()]
     public class GraphExplorerTests
     {

@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using GraphExploring.Logic;
 using GraphExploring.Logic.Finders;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GraphExploring.Logic.Finders.Tests
 {
+    [ExcludeFromCodeCoverage]
     [TestClass()]
     public class BFSTests
     {

@@ -7,9 +7,11 @@ using System.Text;
 using System.Threading.Tasks;
 using GraphExploring.Logic.Finders.HeuristicDistance;
 using Library.Interfaces;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GraphExploring.Logic.Finders.Tests
 {
+    [ExcludeFromCodeCoverage]
     [TestClass()]
     public class AStarTests
     {

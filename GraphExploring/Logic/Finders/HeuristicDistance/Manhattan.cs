@@ -15,10 +15,11 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
             int sum = 0;
             for (byte i = 0; i < SolutionToFind.Length; ++i)
             {
-                if(node.State.State[i] != 0 && SolutionToFind[i] != 0)
+                byte number = node.State.State[i];
+                if(number != 0)
                 {
-                    var (originx, originy) = TranslateCoordinate(SolutionToFind[i]);
-                    var (currentx, currenty) = TranslateCoordinate(node.State.State[i]);
+                    var (currentx, currenty) = TranslateCoordinate(i);
+                    var (originx, originy) = TranslateCoordinate(FindIndex(number));
                     sum += System.Math.Abs(originx - currentx) +
                         System.Math.Abs(originy - currenty);
                 }
@@ -31,6 +32,18 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
             byte X = (byte) (number % sideSize);
             byte Y = (byte) (number / sideSize);
             return (X, Y);
+        }
+
+        private byte FindIndex(byte number)
+        {
+            for(byte i = 0; i < SolutionToFind.Length; ++i)
+            {
+                if(SolutionToFind[i] == number)
+                {
+                    return i;
+                }
+            }
+            return (byte)(SolutionToFind.Length + 1);
         }
     }
 }

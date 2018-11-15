@@ -69,19 +69,13 @@ namespace GraphExploring.Logic.Finders
 
         protected bool CheckIfSolution(INode node)
         {
-            for(byte i = 0; i < node.State.StateSize; ++i)
+            for(byte i = 0; i < node.State.StateSize - 1; ++i) // omit last element; if all previous are in place then last one is as well
             {
                 if (node.State.State[i] != ExpectedSolution[i])
                     return false;
             }
             return true;
         }
-        /*
-        protected bool CheckIfSolution(INode node)
-        {
-           return node.State.State.SequenceEqual(ExpectedSolution);
-        }
-        */
         #endregion
     }
 }
