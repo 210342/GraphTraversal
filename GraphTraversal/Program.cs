@@ -49,8 +49,9 @@ namespace ConsoleEndpoint
                             finder = new AStar(heuristicProvider);
                             break;
                     }
-                    byte[] root = LoadInputFile(inputFile);
-                    explorer = GraphExplorer.CreateGraphExplorer(root, operations.ToCharArray(), finder);
+                    var (dimensions, root) = LoadInputFile(inputFile);
+                    explorer = GraphExplorer.CreateGraphExplorer(dimensions,
+                        root, operations.ToCharArray(), finder);
                 }
                 catch(NullReferenceException e)
                 {
@@ -65,20 +66,21 @@ namespace ConsoleEndpoint
             }
         }
 
-        private static byte[] LoadInputFile(string filepath)
+        private static (byte[], byte[]) LoadInputFile(string filepath)
         {
             string content = File.ReadAllText(filepath);
             content = content.Replace("\r\n", " ");
             content = content.Replace("\r", " ");
             content = content.Replace("\n", " ");
             string[] numbers = content.Split(' ');
-            int size = int.Parse(numbers[0]) * int.Parse(numbers[1]);
+            byte[] dim = new byte[] { byte.Parse(numbers[0]), byte.Parse(numbers[1]) };
+            int size = dim[0] * dim[1];
             byte[] output = new byte[size];
             for(int i = 0; i < size; ++i)
             {
                 output[i] = byte.Parse(numbers[2 + i]); // omit first 2 strings
             }
-            return output;
+            return (dim, output);
         }
 
         private static void WriteOutputFiles(string solutionFile, string dataFile, string solution, GraphExplorer explorer)

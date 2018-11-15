@@ -19,10 +19,9 @@ namespace Library.BasicTypes.Operators
         public override INode Move(INode node)
         {
             byte zeroIndex = node.State.ZeroIndex;
-            int size = (int)Math.Sqrt(node.State.StateSize);
-            if (zeroIndex % size != size - 1)
+            if (zeroIndex % node.State.Dimensions[0] < node.State.Dimensions[0] - 1)
             {
-                IState state = node.State.CloneSwap((byte)zeroIndex, (byte)(zeroIndex + 1));
+                IState state = node.State.CloneSwap(zeroIndex, (byte)(zeroIndex + 1));
                 INode parent = node;
                 IOperator lastOperator = Instance;
                 return new Node(parent, lastOperator, state, node.Depth + 1);

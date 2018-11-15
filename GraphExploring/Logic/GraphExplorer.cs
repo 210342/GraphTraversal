@@ -19,13 +19,13 @@ namespace GraphExploring.Logic
         public int MaximumRecursionDepth { get { return Finder.MaximumDepthReached; } }
         public long TimeSpanInNanoseconds { get; private set; }
 
-        public static GraphExplorer CreateGraphExplorer(byte[] loadedRoot, char[] operations)
+        public static GraphExplorer CreateGraphExplorer(byte[] dimensions, byte[] loadedRoot, char[] operations)
         {
             HashSet<byte> bytesFiltered = new HashSet<byte>(loadedRoot);
             if (bytesFiltered.Count != loadedRoot.Length)
                 throw new InvalidOperationException("Numbers arent unique.");
             GraphExplorer graphExplorer = new GraphExplorer();
-            IState state = new NodeState(loadedRoot);
+            IState state = new NodeState(dimensions, loadedRoot);
             INode node = new Node(null, null, state, depth: 0);
             graphExplorer.RootNode = node;
             foreach(char op in operations)
@@ -40,9 +40,9 @@ namespace GraphExploring.Logic
             }
             return graphExplorer;
         }
-        public static GraphExplorer CreateGraphExplorer(byte[] loadedRoot, char[] operations, IFinder finder)
+        public static GraphExplorer CreateGraphExplorer(byte[] dimensions, byte[] loadedRoot, char[] operations, IFinder finder)
         {
-            var explorer = CreateGraphExplorer(loadedRoot, operations);
+            var explorer = CreateGraphExplorer(dimensions, loadedRoot, operations);
             explorer.Finder = finder;
             return explorer;
         }

@@ -11,7 +11,7 @@ namespace Library.Interfaces
         byte StateSize { get; }
         byte[] State { get; }
         byte ZeroIndex { get; }
-
+        byte[] Dimensions { get; }
         IState CloneSwap(byte i1, byte i2);
     }
 }

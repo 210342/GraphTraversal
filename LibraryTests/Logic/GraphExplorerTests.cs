@@ -15,35 +15,43 @@ namespace Library.Logic.Tests
         [TestMethod]
         public void CreateGraphExplorerCreates()
         {
-            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 1, 2, 3, 4 }, new char[] { 'l', 'r' });
+            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 2, 2 }, 
+                new byte[] { 1, 2, 3, 0 }, new char[] { 'l', 'r' });
             Assert.IsNotNull(ge);
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void CreateGraphExplorerThrows()
         {
-            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 1, 2, 3, 4 }, new char[] { 'z', 'r' });
+            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 2, 2 }, 
+                new byte[] { 1, 2, 3, 0 }, new char[] { 'z', 'r' });
         }
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         public void CreateGraphExplorerThrowsWhenNotUnique()
         {
-            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 1, 2, 3, 1 }, new char[] { 'z', 'r' });
+            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 2, 2 }, 
+                new byte[] { 1, 2, 3, 1 }, new char[] { 'z', 'r' });
         }
 
         [TestMethod()]
         public void IsRootNodeTest_True()
         {
-            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 1, 2, 3, 4 }, new char[] { 'l', 'r' });
-            Assert.IsTrue(ge.IsRootNode(new Node(null, null, new NodeState(new byte[] { 0, 1 }), 0)));
+            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 4, 4 }, 
+                new byte[] { 1, 2, 3, 0 }, 
+                new char[] { 'l', 'r' });
+            Assert.IsTrue(ge.IsRootNode(new Node(null, null, new NodeState(new byte[] { 1, 1 }, 
+                new byte[] { 0, 1 }), 0)));
         }
 
         [TestMethod()]
         public void IsRootNodeTest_False()
         {
-            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 1, 2, 3, 4 }, new char[] { 'l', 'r' });
-            INode parent = new Node(null, null, new NodeState(new byte[] { 0, 1 }), 0);
-            Assert.IsFalse(ge.IsRootNode(new Node(parent, DownOperator.Instance, new NodeState(new byte[] { 0, 1 }), 1)));
+            GraphExplorer ge = GraphExplorer.CreateGraphExplorer(new byte[] { 2, 2},
+                    new byte[] { 1, 2, 3, 4 }, new char[] { 'l', 'r' });
+            INode parent = new Node(null, null, new NodeState(new byte[] { 1, 1 }, new byte[] { 0, 1 }), 0);
+            Assert.IsFalse(ge.IsRootNode(new Node(parent, DownOperator.Instance, new NodeState(new byte[] { 1, 1 },
+                new byte[] { 0, 1 }), 1)));
         }
     }
 }

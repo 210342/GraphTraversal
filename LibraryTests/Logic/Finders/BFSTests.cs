@@ -22,7 +22,8 @@ namespace GraphExploring.Logic.Finders.Tests
         {
             byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 11, 0, 7, 9, 6, 10, 8, 13, 14, 15, 12 };
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer
-                (puzzle,
+                (new byte[] { 4, 4 }, 
+                puzzle,
                 new char[] { 'u', 'd', 'l', 'r' }, new BFS());
             var sol = explorer.TraverseForSolution();
             System.Console.WriteLine(sol);

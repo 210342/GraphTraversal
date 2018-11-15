@@ -10,9 +10,12 @@ namespace Library.BasicTypes
 
         public byte ZeroIndex { get; private set; }
 
-        public NodeState(byte[] state)
+        public byte[] Dimensions { get; set; }
+
+        public NodeState(byte[] dim, byte[] state)
         {
             State = state;
+            Dimensions = dim;
             for(byte i = 0; i < state.Length; ++i)
             {
                 if(state[i] == 0)
@@ -25,7 +28,7 @@ namespace Library.BasicTypes
         public object Clone()
         {
             var copiedState = (byte[])State.Clone();
-            return new NodeState(copiedState);
+            return new NodeState(Dimensions, copiedState);
         }
 
         /// <summary>

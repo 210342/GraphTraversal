@@ -32,9 +32,11 @@ namespace GraphExploring.Logic.Finders.Tests
         [TestMethod()]
         public void AlgorithmHammingHeuristicTest()
         {
-            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 11, 0, 7, 9, 6, 10, 8, 13, 14, 15, 12 };
+            //byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 11, 0, 7, 9, 6, 10, 8, 13, 14, 15, 12 };
+            byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 13, 14, 15, 12 };
             HeuristicProvider heuristicProvider = new Hamming(solution);
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer(
+                new byte[] {4, 4},
                 puzzle,
                 new char[] { 'u', 'd', 'l', 'r' }, new AStar(heuristicProvider));
             string sol = explorer.TraverseForSolution();
@@ -48,6 +50,7 @@ namespace GraphExploring.Logic.Finders.Tests
             byte[] puzzle = new byte[] { 1, 2, 3, 4, 5, 11, 0, 7, 9, 6, 10, 8, 13, 14, 15, 12 };
             HeuristicProvider heuristicProvider = new Manhattan(solution);
             GraphExplorer explorer = GraphExplorer.CreateGraphExplorer(
+                new byte[] { 4, 4 },
                 puzzle,
                 new char[] { 'u', 'd', 'l', 'r' }, new AStar(heuristicProvider));
             string sol = explorer.TraverseForSolution();
