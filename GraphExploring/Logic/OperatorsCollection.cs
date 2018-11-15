@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GraphExploring.Logic
 {
-    internal class OperatorsCollection
+    public class OperatorsCollection
     {
         private OperatorsCollection() { }
 

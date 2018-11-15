@@ -10,6 +10,15 @@ namespace GraphExploring.Logic.Finders.Tests
     [TestClass()]
     public class DFSTests
     {
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            OperatorsCollection.GetOperator('l');
+            OperatorsCollection.GetOperator('r');
+            OperatorsCollection.GetOperator('d');
+            OperatorsCollection.GetOperator('u');
+        }
+
         [TestMethod()]
         public void FindSolutionTest()
         {
