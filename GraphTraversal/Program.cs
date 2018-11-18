@@ -4,7 +4,6 @@ using GraphExploring.Logic.Finders.HeuristicDistance;
 using Library.Interfaces;
 using System;
 using System.IO;
-using System.Linq;
 
 namespace ConsoleEndpoint
 {
@@ -114,8 +113,7 @@ namespace ConsoleEndpoint
                 long nanoseconds = explorer.TimeSpanInNanoseconds;
                 long microseconds = nanoseconds / 1000;
                 long miliseconds = microseconds / 1000;
-                string microsecondsStr = new string(microseconds.ToString().Skip(microseconds.ToString().Length - 3).Take(3).ToArray());
-                writer.WriteLine($"{miliseconds},{microsecondsStr}");
+                writer.WriteLine($"{miliseconds},{microseconds % 1000}");
             }
         }
     }
