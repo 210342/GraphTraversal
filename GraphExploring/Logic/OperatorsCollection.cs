@@ -12,7 +12,7 @@ namespace GraphExploring.Logic
         private static Dictionary<char, (Type, char)> knownOperators =
             new Dictionary<char, (Type, char)>()
             {
-                {'l', (typeof(LeftOperator), 'u') },
+                {'l', (typeof(LeftOperator), 'r') },
                 {'r', (typeof(RightOperator), 'l') },
                 {'u', (typeof(UpOperator), 'd') },
                 {'d', (typeof(DownOperator), 'u') }
