@@ -6,7 +6,9 @@ namespace GraphExploring.Logic.Finders
 {
     public class BFS : AbstractFinder
     {
-        public override IReadOnlyCollection<INode> Frontier { get; } = new Queue<INode>();
+        private Queue<INode> frontier = new Queue<INode>();
+
+        public override IReadOnlyCollection<INode> Frontier { get { return frontier; } }
 
         public override Func<INode, List<IOperator>, INode> FindSolution => Algorithm;
 
@@ -21,11 +23,11 @@ namespace GraphExploring.Logic.Finders
                     INode kid = FindChild(node, op);
                     if (kid != null && !Explored.Contains(kid))
                     {
-                        (Frontier as Queue<INode>).Enqueue(kid);
+                        frontier.Enqueue(kid);
                         Explored.Add(kid);
                     }
                 }
-                node = (Frontier as Queue<INode>).Dequeue();
+                node = frontier.Dequeue();
                 Depth = node.Depth;
             }
             return node;

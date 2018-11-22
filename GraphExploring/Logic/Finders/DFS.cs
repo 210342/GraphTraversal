@@ -6,8 +6,9 @@ namespace GraphExploring.Logic.Finders
     public class DFS : AbstractFinder, IFinder
     {
         private readonly int _depthLimit = 20;
+        private Stack<INode> frontier = new Stack<INode>();
 
-        public override IReadOnlyCollection<INode> Frontier { get; } = new Stack<INode>();
+        public override IReadOnlyCollection<INode> Frontier { get { return frontier; } }
 
         public override System.Func<INode, List<IOperator>, INode> FindSolution => Algorithm;
 
@@ -22,11 +23,11 @@ namespace GraphExploring.Logic.Finders
                     INode kid = FindChild(node, op);
                     if (kid != null && !Explored.Contains(kid) && kid.Depth <= _depthLimit)
                     {
-                        (Frontier as Stack<INode>).Push(kid);
+                        frontier.Push(kid);
                         Explored.Add(kid);
                     }
                 }
-                node = (Frontier as Stack<INode>).Pop();
+                node = frontier.Pop();
                 Depth = node.Depth;
             }
             return node;

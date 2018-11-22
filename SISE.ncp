@@ -1,0 +1,473 @@
+<Project>
+  <Name>SISE</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Library.dll</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Interface">
+        <Name>IFinder</Name>
+        <Access>Public</Access>
+        <Location left="1543" top="475" />
+        <Size width="471" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
+        <Member type="Property">HashSet&lt;INode&gt; Explored { get; }</Member>
+        <Member type="Property">Int32 MaximumDepthReached { get; }</Member>
+        <Member type="Property">Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Property">Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>INode</Name>
+        <Access>Public</Access>
+        <Location left="887" top="1578" />
+        <Size width="452" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">IState State { get; }</Member>
+        <Member type="Property">INode Parent { get; }</Member>
+        <Member type="Property">IOperator LastOperation { get; }</Member>
+        <Member type="Property">Int32 Depth { get; }</Member>
+        <Member type="Property">Int32 SummedCost { get; set; }</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IOperator</Name>
+        <Access>Public</Access>
+        <Location left="487" top="571" />
+        <Size width="189" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">Char Representation { get; }</Member>
+        <Member type="Method">INode Move(INode node)</Member>
+      </Entity>
+      <Entity type="Interface">
+        <Name>IState</Name>
+        <Access>Public</Access>
+        <Location left="1493" top="1578" />
+        <Size width="162" height="151" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">Byte StateSize { get; }</Member>
+        <Member type="Property">Byte[] State { get; }</Member>
+        <Member type="Property">Byte ZeroIndex { get; }</Member>
+        <Member type="Property">Byte[] Dimensions { get; }</Member>
+        <Member type="Method">IState CloneSwap(Byte i1, Byte i2)</Member>
+      </Entity>
+      <Entity type="Class">
+        <Name>Node</Name>
+        <Access>Public</Access>
+        <Location left="887" top="1838" />
+        <Size width="372" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public IState State { get; }</Member>
+        <Member type="Property">public INode Parent { get; }</Member>
+        <Member type="Property">public IOperator LastOperation { get; }</Member>
+        <Member type="Property">public Int32 Depth { get; }</Member>
+        <Member type="Property">public Int32 SummedCost { get; set; }</Member>
+        <Member type="Constructor">public Node(INode parent, IOperator operation, IState state, Int32 depth)</Member>
+        <Member type="Method">public override Int32 GetHashCode()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>NodeState</Name>
+        <Access>Public</Access>
+        <Location left="1493" top="1787" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public Byte[] State { get; }</Member>
+        <Member type="Property">public Byte StateSize { get; }</Member>
+        <Member type="Property">public Byte ZeroIndex { get; private set; }</Member>
+        <Member type="Property">public Byte[] Dimensions { get; set; }</Member>
+        <Member type="Constructor">public NodeState(Byte[] dim, Byte[] state)</Member>
+        <Member type="Method">public Object Clone()</Member>
+        <Member type="Method">public IState CloneSwap(Byte zeroIndex, Byte otherIndex)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>SingletonOperator</Name>
+        <Access>Public</Access>
+        <Location left="487" top="874" />
+        <Size width="189" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public static IOperator Instance { get; }</Member>
+        <Member type="Property">public virtual Char Representation { get; }</Member>
+        <Member type="Constructor">protected SingletonOperator()</Member>
+        <Member type="Method">public abstract INode Move(INode node)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DownOperator</Name>
+        <Access>Public</Access>
+        <Location left="830" top="1224" />
+        <Size width="221" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Lazy&lt;DownOperator&gt; instance</Member>
+        <Member type="Property">public new static IOperator Instance { get; }</Member>
+        <Member type="Property">public override Char Representation { get; }</Member>
+        <Member type="Constructor">private DownOperator()</Member>
+        <Member type="Method">public override INode Move(INode node)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>LeftOperator</Name>
+        <Access>Public</Access>
+        <Location left="303" top="1224" />
+        <Size width="215" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Lazy&lt;LeftOperator&gt; instance</Member>
+        <Member type="Property">public new static IOperator Instance { get; }</Member>
+        <Member type="Property">public override Char Representation { get; }</Member>
+        <Member type="Constructor">private LeftOperator()</Member>
+        <Member type="Method">public override INode Move(INode node)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>RightOperator</Name>
+        <Access>Public</Access>
+        <Location left="44" top="1224" />
+        <Size width="203" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Lazy&lt;RightOperator&gt; instance</Member>
+        <Member type="Property">public new static IOperator Instance { get; }</Member>
+        <Member type="Property">public override Char Representation { get; }</Member>
+        <Member type="Constructor">private RightOperator()</Member>
+        <Member type="Method">public override INode Move(INode node)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>UpOperator</Name>
+        <Access>Public</Access>
+        <Location left="572" top="1224" />
+        <Size width="211" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Lazy&lt;UpOperator&gt; instance</Member>
+        <Member type="Property">public new static IOperator Instance { get; }</Member>
+        <Member type="Property">public override Char Representation { get; }</Member>
+        <Member type="Constructor">private UpOperator()</Member>
+        <Member type="Method">public override INode Move(INode node)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>BFS</Name>
+        <Access>Public</Access>
+        <Location left="1206" top="1221" />
+        <Size width="407" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Queue&lt;INode&gt; frontier</Member>
+        <Member type="Property">public override IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
+        <Member type="Property">public override Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
+        <Member type="Property">public override Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Constructor">public BFS()</Member>
+        <Member type="Method">public INode Algorithm(INode node, List&lt;IOperator&gt; operatorsSequence)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>DFS</Name>
+        <Access>Public</Access>
+        <Location left="1650" top="1225" />
+        <Size width="371" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly Int32 _depthLimit</Member>
+        <Member type="Field">private Stack&lt;INode&gt; frontier</Member>
+        <Member type="Property">public override IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
+        <Member type="Property">public override Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
+        <Member type="Property">public override Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Constructor">public DFS()</Member>
+        <Member type="Method">public INode Algorithm(INode node, List&lt;IOperator&gt; operatorsSequence)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AStar</Name>
+        <Access>Public</Access>
+        <Location left="2056" top="1225" />
+        <Size width="382" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly LinkedList&lt;INode&gt; frontier</Member>
+        <Member type="Property">public override IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
+        <Member type="Property">public override Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Property">public override Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
+        <Member type="Constructor">public AStar(HeuristicProvider heuristicProvider)</Member>
+        <Member type="Method">public INode Algorithm(INode node, List&lt;IOperator&gt; operatorsSequence)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>AbstractFinder</Name>
+        <Access>Public</Access>
+        <Location left="1554" top="803" />
+        <Size width="464" height="281" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private Int32 depth</Member>
+        <Member type="Property">public Byte[] ExpectedSolution { get; }</Member>
+        <Member type="Property">public abstract IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
+        <Member type="Property">public HashSet&lt;INode&gt; Explored { get; }</Member>
+        <Member type="Property">public Int32 Depth { get; set; }</Member>
+        <Member type="Property">public Int32 MaximumDepthReached { get; set; }</Member>
+        <Member type="Property">public abstract Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Property">public abstract Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
+        <Member type="Constructor">protected AbstractFinder()</Member>
+        <Member type="Method">protected IList&lt;INode&gt; FindChildren(INode node, List&lt;IOperator&gt; operatorsSequence)</Member>
+        <Member type="Method">protected INode FindChild(INode node, IOperator op)</Member>
+        <Member type="Method">protected Boolean CheckIfSolution(INode node)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Interface">
+        <Name>ICloneable</Name>
+        <Access>Public</Access>
+        <Location left="1725" top="1578" />
+        <Size width="162" height="61" />
+        <Collapsed>False</Collapsed>
+      </Entity>
+      <Entity type="Class">
+        <Name>Manhattan</Name>
+        <Access>Public</Access>
+        <Location left="2226" top="1578" />
+        <Size width="343" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private readonly Byte sideSize</Member>
+        <Member type="Constructor">public Manhattan(Byte[] solution)</Member>
+        <Member type="Method">public override Int32 Heuristic(INode node)</Member>
+        <Member type="Method">private ValueTuple&lt;Byte, Byte&gt; TranslateCoordinate(Byte number)</Member>
+        <Member type="Method">private Byte FindIndex(Byte number)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>HeuristicProvider</Name>
+        <Access>Public</Access>
+        <Location left="2570" top="1239" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">protected Byte[] SolutionToFind { get; private set; }</Member>
+        <Member type="Constructor">protected HeuristicProvider(Byte[] solution)</Member>
+        <Member type="Method">public abstract Int32 Heuristic(INode node)</Member>
+        <Modifier>Abstract</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>Hamming</Name>
+        <Access>Public</Access>
+        <Location left="2743" top="1578" />
+        <Size width="217" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Constructor">public Hamming(Byte[] solution)</Member>
+        <Member type="Method">public override Int32 Heuristic(INode node)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>OperatorsCollection</Name>
+        <Access>Public</Access>
+        <Location left="780" top="140" />
+        <Size width="303" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private static Dictionary&lt;Char, ValueTuple&lt;Type, Char&gt;&gt; knownOperators</Member>
+        <Member type="Field">private static Dictionary&lt;Char, SingletonOperator&gt; instances</Member>
+        <Member type="Constructor">private OperatorsCollection()</Member>
+        <Member type="Constructor">static OperatorsCollection()</Member>
+        <Member type="Method">public static IOperator GetOperator(Char key)</Member>
+        <Member type="Method">public static IOperator GetReverse(IOperator op)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>GraphExplorer</Name>
+        <Access>Public</Access>
+        <Location left="1416" top="51" />
+        <Size width="598" height="298" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private List&lt;IOperator&gt; operatorsSequence</Member>
+        <Member type="Field">private readonly Stopwatch stopwatch</Member>
+        <Member type="Property">public INode RootNode { get; private set; }</Member>
+        <Member type="Property">public IFinder Finder { get; set; }</Member>
+        <Member type="Property">public Int32 Explored { get; }</Member>
+        <Member type="Property">public Int32 Visited { get; }</Member>
+        <Member type="Property">public Int32 MaximumRecursionDepth { get; }</Member>
+        <Member type="Property">public Int64 TimeSpanInNanoseconds { get; private set; }</Member>
+        <Member type="Constructor">private GraphExplorer()</Member>
+        <Member type="Method">public static GraphExplorer CreateGraphExplorer(Byte[] dimensions, Byte[] loadedRoot, Char[] operations)</Member>
+        <Member type="Method">public static GraphExplorer CreateGraphExplorer(Byte[] dimensions, Byte[] loadedRoot, Char[] operations, IFinder finder)</Member>
+        <Member type="Method">public Boolean IsRootNode(INode node)</Member>
+        <Member type="Method">public String TraverseForSolution()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Generalization" first="7" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>906</X>
+          <Y>1182</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="8" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>461</X>
+          <Y>1151</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="9" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>128</X>
+          <Y>1160</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="10" second="6">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>646</X>
+          <Y>1194</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>590</X>
+          <Y>1115</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="4" second="1">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1006</X>
+          <Y>1813</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1006</X>
+          <Y>1819</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="5" second="3">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1569</X>
+          <Y>1759</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1569</X>
+          <Y>1754</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="6" second="2">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Generalization" first="12" second="14">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1786</X>
+          <Y>1195</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="11" second="14">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1661</X>
+          <Y>1111</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="13" second="14">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>2184</X>
+          <Y>1200</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1916</X>
+          <Y>1111</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="14" second="0">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Dependency" first="0" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1510</X>
+          <Y>541</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>701</X>
+          <Y>635</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Realization" first="5" second="15">
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1680</X>
+          <Y>1770</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="16" second="17">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>2607</X>
+          <Y>1505</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Generalization" first="18" second="17">
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>2693</X>
+          <Y>1481</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="13" second="17">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+      <Relationship type="Association" first="3" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Dependency" first="2" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1105</X>
+          <Y>728</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="0" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>1484</X>
+          <Y>640</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1174</X>
+          <Y>1553</Y>
+        </BendPoint>
+      </Relationship>
+      <Relationship type="Dependency" first="20" second="0">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+      </Relationship>
+      <Relationship type="Dependency" first="20" second="19">
+        <Label>
+        </Label>
+        <StartOrientation>Horizontal</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>
