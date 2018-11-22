@@ -46,5 +46,17 @@ namespace Library.BasicTypes
             ((NodeState)newClone).ZeroIndex = otherIndex; // it's other index since it's swapped
             return newClone;
         }
+
+        public override int GetHashCode()
+        {
+            int code = State.Length;
+
+            for (int i = 0; i < State.Length; ++i)
+            {
+                code = code * 16661 + State[i];
+            }
+
+            return code;
+        }
     }
 }

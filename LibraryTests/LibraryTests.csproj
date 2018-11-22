@@ -56,6 +56,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BasicTypes\NodeTests.cs" />
     <Compile Include="BasicTypes\Operators\DownOperatorTests.cs" />
     <Compile Include="BasicTypes\Operators\LeftOperatorTests.cs" />
     <Compile Include="BasicTypes\Operators\RightOperatorTests.cs" />

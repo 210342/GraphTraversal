@@ -22,7 +22,7 @@ namespace Library.BasicTypes
         }
         public override int GetHashCode()
         {
-            return State.GetHashCode();
+            return State.GetHashCode() * 16661 + Depth;
         }
     }
 }

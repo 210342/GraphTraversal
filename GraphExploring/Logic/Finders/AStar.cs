@@ -23,35 +23,42 @@ namespace GraphExploring.Logic.Finders
         public INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {
             frontier.AddFirst(node);
-            while (!CheckIfSolution(node))
+            Explored.Add(node);
+            while (true)
             {
                 foreach (IOperator op in operatorsSequence)
                 {
                     INode kid = FindChild(node, op);
-                    if (kid != null && !Explored.Contains(kid))
+                    if(kid != null)
                     {
-                        kid.SummedCost = node.SummedCost + HeuristicFunction(kid);
-                        if(kid.SummedCost < frontier.First.Value.SummedCost)
+                        if(CheckIfSolution(kid))
                         {
-                            frontier.AddFirst(kid);
+                            return kid;
                         }
-                        else
+                        else if (!Explored.Contains(kid))
                         {
-                            LinkedListNode<INode> InsertAfter = frontier.First;
-                            while (InsertAfter.Next != null && kid.SummedCost > InsertAfter.Next.Value.SummedCost)
+                            kid.SummedCost = node.SummedCost + HeuristicFunction(kid);
+                            if (kid.SummedCost < frontier.First.Value.SummedCost)
                             {
-                                InsertAfter = InsertAfter.Next;
+                                frontier.AddFirst(kid);
                             }
-                            frontier.AddAfter(InsertAfter, kid);
+                            else
+                            {
+                                LinkedListNode<INode> InsertAfter = frontier.First;
+                                while (InsertAfter.Next != null && kid.SummedCost > InsertAfter.Next.Value.SummedCost)
+                                {
+                                    InsertAfter = InsertAfter.Next;
+                                }
+                                frontier.AddAfter(InsertAfter, kid);
+                            }
+                            Explored.Add(kid);
                         }
-                        Explored.Add(kid);
                     }
                 }
                 frontier.RemoveFirst();
                 node = frontier.First.Value;
                 Depth = node.Depth;
             }
-            return node;
         }
     }
 }

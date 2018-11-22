@@ -16,21 +16,29 @@ namespace GraphExploring.Logic.Finders
 
         public INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {
-            while (!CheckIfSolution(node))
+            Explored.Add(node);
+
+            while (true)
             {
                 foreach (IOperator op in operatorsSequence)
                 {
                     INode kid = FindChild(node, op);
-                    if (kid != null && !Explored.Contains(kid) && kid.Depth <= _depthLimit)
+                    if (kid != null)
                     {
-                        frontier.Push(kid);
-                        Explored.Add(kid);
+                        if (CheckIfSolution(kid))
+                        {
+                            return kid;
+                        }
+                        else if (!Explored.Contains(kid) && kid.Depth <= _depthLimit)
+                        {
+                            frontier.Push(kid);
+                            Explored.Add(kid);
+                        }
                     }
                 }
                 node = frontier.Pop();
                 Depth = node.Depth;
             }
-            return node;
         }
     }
 }

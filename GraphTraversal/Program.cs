@@ -31,7 +31,7 @@ namespace ConsoleEndpoint
                             break;
                         case "dfs":
                             finder = new DFS();
-                            operations = args[1].ToLower();
+                            operations = Reverse(args[1].ToLower());
                             break;
                         case "astr":
                             HeuristicProvider heuristicProvider = null;
@@ -115,6 +115,17 @@ namespace ConsoleEndpoint
                 long miliseconds = microseconds / 1000;
                 writer.WriteLine($"{miliseconds},{microseconds % 1000}");
             }
+        }
+
+        private static string Reverse(string text)
+        {
+            if (text == null)
+            {
+                return null;
+            }
+            char[] array = text.ToCharArray();
+            Array.Reverse(array);
+            return new string(array);
         }
     }
 }
