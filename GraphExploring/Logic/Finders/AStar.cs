@@ -24,6 +24,11 @@ namespace GraphExploring.Logic.Finders
         {
             frontier.AddFirst(node);
             Explored.Add(node);
+            if (CheckIfSolution(node))
+            {
+                return node;
+            }
+
             while (true)
             {
                 foreach (IOperator op in operatorsSequence)
@@ -31,8 +36,10 @@ namespace GraphExploring.Logic.Finders
                     INode kid = FindChild(node, op);
                     if(kid != null)
                     {
+                        Depth = kid.Depth;
                         if(CheckIfSolution(kid))
                         {
+                            frontier.RemoveFirst();
                             return kid;
                         }
                         else if (!Explored.Contains(kid))
@@ -57,7 +64,6 @@ namespace GraphExploring.Logic.Finders
                 }
                 frontier.RemoveFirst();
                 node = frontier.First.Value;
-                Depth = node.Depth;
             }
         }
     }
