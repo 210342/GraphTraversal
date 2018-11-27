@@ -14,7 +14,7 @@ namespace GraphExploring.Logic.Finders
 
         public override Func<INode, int> HeuristicFunction => (_) => 1;
 
-        public INode Algorithm(INode node, List<IOperator> operatorsSequence)
+        private INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {
             Explored.Add(node);
             if(CheckIfSolution(node))

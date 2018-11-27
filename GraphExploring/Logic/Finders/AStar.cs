@@ -20,7 +20,7 @@ namespace GraphExploring.Logic.Finders
             HeuristicFunction = heuristicProvider.Heuristic;
         }
 
-        public INode Algorithm(INode node, List<IOperator> operatorsSequence)
+        private INode Algorithm(INode node, List<IOperator> operatorsSequence)
         {
             frontier.AddFirst(node);
             Explored.Add(node);
