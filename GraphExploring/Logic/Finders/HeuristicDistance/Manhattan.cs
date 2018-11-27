@@ -18,7 +18,7 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
                 byte number = node.State.State[i];
                 if(number != 0)
                 {
-                    var (currentx, currenty) = TranslateCoordinate(number);
+                    var (currentx, currenty) = TranslateCoordinate(i);
                     var (originx, originy) = TranslateCoordinate(FindIndex(number));
                     sum += System.Math.Abs(originx - currentx) +
                         System.Math.Abs(originy - currenty);
