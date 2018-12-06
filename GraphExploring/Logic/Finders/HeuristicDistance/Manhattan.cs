@@ -4,10 +4,10 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
 {
     public class Manhattan : HeuristicProvider
     {
-        private readonly byte sideSize = 0;
-        public Manhattan(byte[] solution) : base(solution)
+        private readonly byte rowSize = 0;
+        public Manhattan(IState state) : base(state.State)
         {
-            sideSize = (byte)System.Math.Sqrt(SolutionToFind.Length);
+            rowSize = state.Dimensions[0]; // 0 is row index
         }
 
         public override int Heuristic(INode node)
@@ -29,8 +29,8 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
         }
         private (byte X, byte Y) TranslateCoordinate(byte number)
         {
-            byte X = (byte) (number % sideSize);
-            byte Y = (byte) (number / sideSize);
+            byte X = (byte) (number % rowSize);
+            byte Y = (byte) (number / rowSize);
             return (X, Y);
         }
 

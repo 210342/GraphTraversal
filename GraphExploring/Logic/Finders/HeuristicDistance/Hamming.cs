@@ -4,7 +4,7 @@ namespace GraphExploring.Logic.Finders.HeuristicDistance
 {
     public class Hamming : HeuristicProvider
     {
-        public Hamming(byte[] solution) : base(solution)
+        public Hamming(IState state) : base(state.State)
         {
         }
 

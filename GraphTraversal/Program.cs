@@ -1,9 +1,11 @@
 ﻿using GraphExploring.Logic;
 using GraphExploring.Logic.Finders;
 using GraphExploring.Logic.Finders.HeuristicDistance;
+using Library.BasicTypes;
 using Library.Interfaces;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace ConsoleEndpoint
 {
@@ -11,9 +13,7 @@ namespace ConsoleEndpoint
     {
         static void Main(string[] args)
         {
-            byte[] solutionState = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 };
-            
-            if(args.Length == 5)
+            if (args.Length == 5)
             {
                 GraphExplorer explorer = null;
                 IFinder finder = null;
@@ -21,6 +21,27 @@ namespace ConsoleEndpoint
                 string outputFile = args[3];
                 string dataFile = args[4];
                 string operations = null;
+                string solutionPath = "solution.txt";
+                IState solutionState;
+                byte[] dimensions, root;
+                (dimensions, root) = LoadInputFile(inputFile);
+                if (File.Exists(solutionPath))
+                {
+                    byte[] solutionDimensions, state;
+                    (solutionDimensions, state) = LoadInputFile(solutionPath);
+                    solutionState = new NodeState(solutionDimensions, state);
+                }
+                else
+                {
+                    byte limit = (byte)(dimensions[0] * dimensions[1]);
+                    byte[] solutionArray = new byte[limit];
+                    for(byte i = 0; i < limit - 1; ++i)
+                    {
+                        solutionArray[i] = (byte)(i + 1);
+                    }
+                    solutionArray[limit - 1] = 0;
+                    solutionState = new NodeState(dimensions, solutionArray);
+                }
                 try
                 {
                     switch (args[0])
@@ -48,9 +69,15 @@ namespace ConsoleEndpoint
                             finder = new AStar(heuristicProvider);
                             break;
                     }
-                    var (dimensions, root) = LoadInputFile(inputFile);
-                    explorer = GraphExplorer.CreateGraphExplorer(dimensions,
-                        root, operations.ToCharArray(), finder);
+                    if(Enumerable.SequenceEqual(dimensions, solutionState.Dimensions))
+                    {
+                        explorer = GraphExplorer.CreateGraphExplorer(dimensions,
+                            root, operations.ToCharArray(), finder);
+                    }
+                    else
+                    {
+                        
+                    }
                 }
                 catch(NullReferenceException e)
                 {
