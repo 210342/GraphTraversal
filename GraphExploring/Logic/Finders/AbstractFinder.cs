@@ -7,10 +7,11 @@ namespace GraphExploring.Logic.Finders
 {
     public abstract class AbstractFinder : IFinder
     {
-        public byte[] ExpectedSolution { get; } = new byte[]
+        public byte[] ExpectedSolution { get; protected set; } = new byte[]
         {
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0
         };
+
 
         #region Properties
         private int depth = 0;
@@ -37,7 +38,7 @@ namespace GraphExploring.Logic.Finders
 
         public abstract Func<INode, int> HeuristicFunction { get; }
 
-        public abstract Func<INode, List<IOperator>, INode> FindSolution { get; }
+        public abstract Func<INode, List<IOperator>, byte[], INode> FindSolution { get; }
         #endregion
 
 

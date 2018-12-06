@@ -41,6 +41,8 @@ namespace GraphExploring.Logic.Finders.Tests
                 new byte[] {4, 4},
                 puzzle,
                 new char[] { 'u', 'd', 'l', 'r' }, new AStar(heuristicProvider));
+            explorer.TargetState = new NodeState(new byte[] { 4, 4 },
+                new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 });
             string sol = explorer.TraverseForSolution();
             System.Console.WriteLine(sol);
             Assert.IsFalse(string.IsNullOrEmpty(sol));
@@ -55,6 +57,8 @@ namespace GraphExploring.Logic.Finders.Tests
                 new byte[] { 4, 4 },
                 puzzle,
                 new char[] { 'u', 'd', 'l', 'r' }, new AStar(heuristicProvider));
+            explorer.TargetState = new NodeState(new byte[] { 4, 4 },
+                new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 });
             string sol = explorer.TraverseForSolution();
             Assert.IsFalse(string.IsNullOrEmpty(sol));
         }

@@ -14,6 +14,7 @@ namespace GraphExploring.Logic
 
         public INode RootNode { get; private set; }
         public IFinder Finder { get; set; }
+        public IState TargetState { get; set; }
         public int Explored { get { return Finder.Explored.Count - Finder.Frontier.Count; } }
         public int Visited { get { return Finder.Explored.Count; } }
         public int MaximumRecursionDepth { get { return Finder.MaximumDepthReached; } }
@@ -63,7 +64,7 @@ namespace GraphExploring.Logic
             try
             {
                 stopwatch.Start();
-                solution = Finder.FindSolution(RootNode, operatorsSequence);
+                solution = Finder.FindSolution(RootNode, operatorsSequence, TargetState.State);
                 stopwatch.Stop();
                 long nanosecPerTick = (1000000000) / Stopwatch.Frequency;
                 TimeSpanInNanoseconds = stopwatch.ElapsedTicks * nanosecPerTick;

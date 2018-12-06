@@ -10,12 +10,14 @@ namespace GraphExploring.Logic.Finders
 
         public override IReadOnlyCollection<INode> Frontier { get { return frontier; } }
 
-        public override Func<INode, List<IOperator>, INode> FindSolution => Algorithm;
+        public override Func<INode, List<IOperator>, byte[], INode> FindSolution => Algorithm;
 
         public override Func<INode, int> HeuristicFunction => (_) => 1;
 
-        private INode Algorithm(INode node, List<IOperator> operatorsSequence)
+
+        private INode Algorithm(INode node, List<IOperator> operatorsSequence, byte[] expectedSolution)
         {
+            ExpectedSolution = expectedSolution;
             Explored.Add(node);
             if(CheckIfSolution(node))
             {

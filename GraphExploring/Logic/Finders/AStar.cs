@@ -13,15 +13,16 @@ namespace GraphExploring.Logic.Finders
 
         public override Func<INode, int> HeuristicFunction { get; }
 
-        public override Func<INode, List<IOperator>, INode> FindSolution => Algorithm;
+        public override Func<INode, List<IOperator>, byte[], INode> FindSolution => Algorithm;
 
         public AStar(HeuristicProvider heuristicProvider)
         {
             HeuristicFunction = heuristicProvider.Heuristic;
         }
 
-        private INode Algorithm(INode node, List<IOperator> operatorsSequence)
+        private INode Algorithm(INode node, List<IOperator> operatorsSequence, byte[] expectedSolution)
         {
+            ExpectedSolution = expectedSolution;
             frontier.AddFirst(node);
             Explored.Add(node);
             if (CheckIfSolution(node))

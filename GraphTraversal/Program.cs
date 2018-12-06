@@ -73,10 +73,11 @@ namespace ConsoleEndpoint
                     {
                         explorer = GraphExplorer.CreateGraphExplorer(dimensions,
                             root, operations.ToCharArray(), finder);
+                        explorer.TargetState = solutionState;
                     }
                     else
                     {
-                        
+                        throw new NullReferenceException("root state and solution state have different dimensions");
                     }
                 }
                 catch(NullReferenceException e)
