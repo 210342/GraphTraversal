@@ -100,7 +100,7 @@ namespace ConsoleEndpoint
             content = content.Replace("\r", " ");
             content = content.Replace("\n", " ");
             string[] numbers = content.Split(' ');
-            byte[] dim = new byte[] { byte.Parse(numbers[0]), byte.Parse(numbers[1]) };
+            byte[] dim = [byte.Parse(numbers[0]), byte.Parse(numbers[1])];
             int size = dim[0] * dim[1];
             byte[] output = new byte[size];
             for(int i = 0; i < size; ++i)
@@ -112,7 +112,7 @@ namespace ConsoleEndpoint
 
         private static void WriteOutputFiles(string solutionFile, string dataFile, string solution, GraphExplorer explorer)
         {
-            using (StreamWriter writer = new StreamWriter(File.OpenWrite(solutionFile)))
+            using (StreamWriter writer = new(File.OpenWrite(solutionFile)))
             {
                 if(string.IsNullOrEmpty(solution))
                 {
@@ -125,7 +125,7 @@ namespace ConsoleEndpoint
                 }
             }
 
-            using (StreamWriter writer = new StreamWriter(File.OpenWrite(dataFile)))
+            using (StreamWriter writer = new(File.OpenWrite(dataFile)))
             {
                 if (string.IsNullOrEmpty(solution))
                 {

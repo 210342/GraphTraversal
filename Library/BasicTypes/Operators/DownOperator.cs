@@ -7,7 +7,7 @@ namespace Library.BasicTypes.Operators
     {
         #region singleton
         private static readonly Lazy<DownOperator> instance =
-            new Lazy<DownOperator>(() => new DownOperator());
+            new(() => new DownOperator());
 
         public new static IOperator Instance => instance.Value;
         #endregion

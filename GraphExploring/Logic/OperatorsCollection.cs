@@ -9,16 +9,15 @@ namespace GraphExploring.Logic
     {
         private OperatorsCollection() { }
 
-        private static Dictionary<char, (Type, char)> knownOperators =
-            new Dictionary<char, (Type, char)>()
+        private static readonly Dictionary<char, (Type, char)> knownOperators =
+            new()
             {
                 {'l', (typeof(LeftOperator), 'r') },
                 {'r', (typeof(RightOperator), 'l') },
                 {'u', (typeof(UpOperator), 'd') },
                 {'d', (typeof(DownOperator), 'u') }
             };
-        private static Dictionary<char, SingletonOperator>
-            instances = new Dictionary<char, SingletonOperator>();
+        private static readonly Dictionary<char, SingletonOperator> instances = [];
 
         public static IOperator GetOperator(char key)
         {

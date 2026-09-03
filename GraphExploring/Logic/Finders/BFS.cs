@@ -6,7 +6,7 @@ namespace GraphExploring.Logic.Finders
 {
     public class BFS : AbstractFinder
     {
-        private Queue<INode> frontier = new Queue<INode>();
+        private readonly Queue<INode> frontier = new();
 
         public override IReadOnlyCollection<INode> Frontier { get { return frontier; } }
 

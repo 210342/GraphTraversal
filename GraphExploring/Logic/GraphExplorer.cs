@@ -9,8 +9,8 @@ namespace GraphExploring.Logic
 {
     public class GraphExplorer
     {
-        private List<IOperator> operatorsSequence = new List<IOperator>();
-        private readonly Stopwatch stopwatch = new Stopwatch();
+        private readonly List<IOperator> operatorsSequence = [];
+        private readonly Stopwatch stopwatch = new();
 
         public INode RootNode { get; private set; }
         public IFinder Finder { get; set; }
@@ -22,10 +22,10 @@ namespace GraphExploring.Logic
 
         public static GraphExplorer CreateGraphExplorer(byte[] dimensions, byte[] loadedRoot, char[] operations)
         {
-            HashSet<byte> bytesFiltered = new HashSet<byte>(loadedRoot);
+            HashSet<byte> bytesFiltered = new(loadedRoot);
             if (bytesFiltered.Count != loadedRoot.Length)
                 throw new InvalidOperationException("Numbers arent unique.");
-            GraphExplorer graphExplorer = new GraphExplorer();
+            GraphExplorer graphExplorer = new();
             IState state = new NodeState(dimensions, loadedRoot);
             INode node = new Node(null, null, state, depth: 0);
             graphExplorer.RootNode = node;
@@ -76,7 +76,7 @@ namespace GraphExploring.Logic
                 stopwatch.Stop();
             }
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             if (solution != null)
             {
                 INode currNode = solution;

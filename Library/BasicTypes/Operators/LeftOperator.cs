@@ -11,7 +11,7 @@ namespace Library.BasicTypes.Operators
     {
         #region singleton
         private static readonly Lazy<LeftOperator> instance =
-            new Lazy<LeftOperator>(() => new LeftOperator());
+            new(() => new LeftOperator());
 
         public new static IOperator Instance => instance.Value;
         #endregion

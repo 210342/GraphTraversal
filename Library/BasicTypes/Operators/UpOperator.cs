@@ -7,7 +7,7 @@ namespace Library.BasicTypes.Operators
     {
         #region singleton
         private static readonly Lazy<UpOperator> instance =
-            new Lazy<UpOperator>(() => new UpOperator());
+            new(() => new UpOperator());
 
         public new static IOperator Instance => instance.Value;
         #endregion
