@@ -1,23 +1,23 @@
-﻿using Library.Interfaces;
+﻿using Library.BasicTypes;
+using Library.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GraphExploring.Logic.Finders
 {
     public abstract class AbstractFinder : IFinder
     {
-        public byte[] ExpectedSolution { get; protected set; } =
+        protected byte[] _expectedSolution =
         [
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0
         ];
+        private int depth = 0;
 
 
         #region Properties
-        private int depth = 0;
-        public abstract IReadOnlyCollection<INode> Frontier { get; }
+        public abstract IReadOnlyCollection<Node> Frontier { get; }
 
-        public HashSet<INode> Explored { get; } = [];
+        public HashSet<Node> Explored { get; } = [];
         public int Depth
         {
             get
@@ -33,34 +33,17 @@ namespace GraphExploring.Logic.Finders
                 }
             }
         }
-
         public int MaximumDepthReached { get; set; }
 
-        public abstract Func<INode, int> HeuristicFunction { get; }
+        public abstract Func<Node, int> HeuristicFunction { get; }
 
-        public abstract Func<INode, List<IOperator>, byte[], INode> FindSolution { get; }
+        public abstract Func<Node, List<IOperator>, byte[], Node> FindSolution { get; }
+
         #endregion
 
+        #region Helping Methods
 
-        #region Helping Methods  
-        [System.Obsolete("Method is obsolelte, please use FindChild with respect to single operator." +
-             " Makes the whole searching process slightly less consuming.")]
-        protected IList<INode> FindChildren(INode node, List<IOperator> operatorsSequence)
-        {
-            int opCount = operatorsSequence.Count();
-            List<INode> result = [];
-            for (int i = 0; i < opCount; ++i)
-            {
-                IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
-                if (operatorsSequence[i] != reverseOp)
-                {
-                    result.Add(operatorsSequence[i].Move(node));
-                }
-            }
-            return result;
-        }
-        
-        protected INode FindChild(INode node, IOperator op)
+        protected static Node FindChild(Node node, IOperator op)
         {
             IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);
             if (op != reverseOp)
@@ -68,11 +51,11 @@ namespace GraphExploring.Logic.Finders
             return null;
         }
 
-        protected bool CheckIfSolution(INode node)
+        protected bool CheckIfSolution(Node node)
         {
-            for(byte i = 0; i < node.State.StateSize - 1; ++i) // omit last element; if all previous are in place then last one is as well
+            for(byte i = 0; i < node.State.State.Length - 1; ++i) // omit last element; if all previous are in place then last one is as well
             {
-                if (node.State.State[i] != ExpectedSolution[i])
+                if (node.State.State[i] != _expectedSolution[i])
                     return false;
             }
             return true;

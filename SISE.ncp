@@ -10,20 +10,20 @@
         <Location left="1543" top="475" />
         <Size width="471" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Property">IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
-        <Member type="Property">HashSet&lt;INode&gt; Explored { get; }</Member>
+        <Member type="Property">IReadOnlyCollection&lt;Node&gt; Frontier { get; }</Member>
+        <Member type="Property">HashSet&lt;Node&gt; Explored { get; }</Member>
         <Member type="Property">Int32 MaximumDepthReached { get; }</Member>
-        <Member type="Property">Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
-        <Member type="Property">Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
+        <Member type="Property">Func&lt;Node, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Property">Func&lt;Node, List&lt;IOperator&gt;, Node&gt; FindSolution { get; }</Member>
       </Entity>
       <Entity type="Interface">
-        <Name>INode</Name>
+        <Name>Node</Name>
         <Access>Public</Access>
         <Location left="887" top="1578" />
         <Size width="452" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Property">IState State { get; }</Member>
-        <Member type="Property">INode Parent { get; }</Member>
+        <Member type="Property">NodeState State { get; }</Member>
+        <Member type="Property">Node Parent { get; }</Member>
         <Member type="Property">IOperator LastOperation { get; }</Member>
         <Member type="Property">Int32 Depth { get; }</Member>
         <Member type="Property">Int32 SummedCost { get; set; }</Member>
@@ -35,10 +35,10 @@
         <Size width="189" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Property">Char Representation { get; }</Member>
-        <Member type="Method">INode Move(INode node)</Member>
+        <Member type="Method">Node Move(Node node)</Member>
       </Entity>
       <Entity type="Interface">
-        <Name>IState</Name>
+        <Name>NodeState</Name>
         <Access>Public</Access>
         <Location left="1493" top="1578" />
         <Size width="162" height="151" />
@@ -47,7 +47,7 @@
         <Member type="Property">Byte[] State { get; }</Member>
         <Member type="Property">Byte ZeroIndex { get; }</Member>
         <Member type="Property">Byte[] Dimensions { get; }</Member>
-        <Member type="Method">IState CloneSwap(Byte i1, Byte i2)</Member>
+        <Member type="Method">NodeState CloneSwap(Byte i1, Byte i2)</Member>
       </Entity>
       <Entity type="Class">
         <Name>Node</Name>
@@ -55,12 +55,12 @@
         <Location left="887" top="1838" />
         <Size width="372" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Property">public IState State { get; }</Member>
-        <Member type="Property">public INode Parent { get; }</Member>
+        <Member type="Property">public NodeState State { get; }</Member>
+        <Member type="Property">public Node Parent { get; }</Member>
         <Member type="Property">public IOperator LastOperation { get; }</Member>
         <Member type="Property">public Int32 Depth { get; }</Member>
         <Member type="Property">public Int32 SummedCost { get; set; }</Member>
-        <Member type="Constructor">public Node(INode parent, IOperator operation, IState state, Int32 depth)</Member>
+        <Member type="Constructor">public Node(Node parent, IOperator operation, NodeState state, Int32 depth)</Member>
         <Member type="Method">public override Int32 GetHashCode()</Member>
         <Modifier>None</Modifier>
       </Entity>
@@ -76,7 +76,7 @@
         <Member type="Property">public Byte[] Dimensions { get; set; }</Member>
         <Member type="Constructor">public NodeState(Byte[] dim, Byte[] state)</Member>
         <Member type="Method">public Object Clone()</Member>
-        <Member type="Method">public IState CloneSwap(Byte zeroIndex, Byte otherIndex)</Member>
+        <Member type="Method">public NodeState CloneSwap(Byte zeroIndex, Byte otherIndex)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -88,7 +88,7 @@
         <Member type="Property">public static IOperator Instance { get; }</Member>
         <Member type="Property">public virtual Char Representation { get; }</Member>
         <Member type="Constructor">protected SingletonOperator()</Member>
-        <Member type="Method">public abstract INode Move(INode node)</Member>
+        <Member type="Method">public abstract Node Move(Node node)</Member>
         <Modifier>Abstract</Modifier>
       </Entity>
       <Entity type="Class">
@@ -101,7 +101,7 @@
         <Member type="Property">public new static IOperator Instance { get; }</Member>
         <Member type="Property">public override Char Representation { get; }</Member>
         <Member type="Constructor">private DownOperator()</Member>
-        <Member type="Method">public override INode Move(INode node)</Member>
+        <Member type="Method">public override Node Move(Node node)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -114,7 +114,7 @@
         <Member type="Property">public new static IOperator Instance { get; }</Member>
         <Member type="Property">public override Char Representation { get; }</Member>
         <Member type="Constructor">private LeftOperator()</Member>
-        <Member type="Method">public override INode Move(INode node)</Member>
+        <Member type="Method">public override Node Move(Node node)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -127,7 +127,7 @@
         <Member type="Property">public new static IOperator Instance { get; }</Member>
         <Member type="Property">public override Char Representation { get; }</Member>
         <Member type="Constructor">private RightOperator()</Member>
-        <Member type="Method">public override INode Move(INode node)</Member>
+        <Member type="Method">public override Node Move(Node node)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -140,7 +140,7 @@
         <Member type="Property">public new static IOperator Instance { get; }</Member>
         <Member type="Property">public override Char Representation { get; }</Member>
         <Member type="Constructor">private UpOperator()</Member>
-        <Member type="Method">public override INode Move(INode node)</Member>
+        <Member type="Method">public override Node Move(Node node)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -149,12 +149,12 @@
         <Location left="1206" top="1221" />
         <Size width="407" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private Queue&lt;INode&gt; frontier</Member>
-        <Member type="Property">public override IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
-        <Member type="Property">public override Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
-        <Member type="Property">public override Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Field">private Queue&lt;Node&gt; frontier</Member>
+        <Member type="Property">public override IReadOnlyCollection&lt;Node&gt; Frontier { get; }</Member>
+        <Member type="Property">public override Func&lt;Node, List&lt;IOperator&gt;, Node&gt; FindSolution { get; }</Member>
+        <Member type="Property">public override Func&lt;Node, Int32&gt; HeuristicFunction { get; }</Member>
         <Member type="Constructor">public BFS()</Member>
-        <Member type="Method">public INode Algorithm(INode node, List&lt;IOperator&gt; operatorsSequence)</Member>
+        <Member type="Method">public Node Algorithm(Node node, List&lt;IOperator&gt; operatorsSequence)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -164,12 +164,12 @@
         <Size width="371" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly Int32 _depthLimit</Member>
-        <Member type="Field">private Stack&lt;INode&gt; frontier</Member>
-        <Member type="Property">public override IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
-        <Member type="Property">public override Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
-        <Member type="Property">public override Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Field">private Stack&lt;Node&gt; frontier</Member>
+        <Member type="Property">public override IReadOnlyCollection&lt;Node&gt; Frontier { get; }</Member>
+        <Member type="Property">public override Func&lt;Node, List&lt;IOperator&gt;, Node&gt; FindSolution { get; }</Member>
+        <Member type="Property">public override Func&lt;Node, Int32&gt; HeuristicFunction { get; }</Member>
         <Member type="Constructor">public DFS()</Member>
-        <Member type="Method">public INode Algorithm(INode node, List&lt;IOperator&gt; operatorsSequence)</Member>
+        <Member type="Method">public Node Algorithm(Node node, List&lt;IOperator&gt; operatorsSequence)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -178,12 +178,12 @@
         <Location left="2056" top="1225" />
         <Size width="382" height="216" />
         <Collapsed>False</Collapsed>
-        <Member type="Field">private readonly LinkedList&lt;INode&gt; frontier</Member>
-        <Member type="Property">public override IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
-        <Member type="Property">public override Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
-        <Member type="Property">public override Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
+        <Member type="Field">private readonly LinkedList&lt;Node&gt; frontier</Member>
+        <Member type="Property">public override IReadOnlyCollection&lt;Node&gt; Frontier { get; }</Member>
+        <Member type="Property">public override Func&lt;Node, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Property">public override Func&lt;Node, List&lt;IOperator&gt;, Node&gt; FindSolution { get; }</Member>
         <Member type="Constructor">public AStar(HeuristicProvider heuristicProvider)</Member>
-        <Member type="Method">public INode Algorithm(INode node, List&lt;IOperator&gt; operatorsSequence)</Member>
+        <Member type="Method">public Node Algorithm(Node node, List&lt;IOperator&gt; operatorsSequence)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -194,16 +194,16 @@
         <Collapsed>False</Collapsed>
         <Member type="Field">private Int32 depth</Member>
         <Member type="Property">public Byte[] ExpectedSolution { get; }</Member>
-        <Member type="Property">public abstract IReadOnlyCollection&lt;INode&gt; Frontier { get; }</Member>
-        <Member type="Property">public HashSet&lt;INode&gt; Explored { get; }</Member>
+        <Member type="Property">public abstract IReadOnlyCollection&lt;Node&gt; Frontier { get; }</Member>
+        <Member type="Property">public HashSet&lt;Node&gt; Explored { get; }</Member>
         <Member type="Property">public Int32 Depth { get; set; }</Member>
         <Member type="Property">public Int32 MaximumDepthReached { get; set; }</Member>
-        <Member type="Property">public abstract Func&lt;INode, Int32&gt; HeuristicFunction { get; }</Member>
-        <Member type="Property">public abstract Func&lt;INode, List&lt;IOperator&gt;, INode&gt; FindSolution { get; }</Member>
+        <Member type="Property">public abstract Func&lt;Node, Int32&gt; HeuristicFunction { get; }</Member>
+        <Member type="Property">public abstract Func&lt;Node, List&lt;IOperator&gt;, Node&gt; FindSolution { get; }</Member>
         <Member type="Constructor">protected AbstractFinder()</Member>
-        <Member type="Method">protected IList&lt;INode&gt; FindChildren(INode node, List&lt;IOperator&gt; operatorsSequence)</Member>
-        <Member type="Method">protected INode FindChild(INode node, IOperator op)</Member>
-        <Member type="Method">protected Boolean CheckIfSolution(INode node)</Member>
+        <Member type="Method">protected IList&lt;Node&gt; FindChildren(Node node, List&lt;IOperator&gt; operatorsSequence)</Member>
+        <Member type="Method">protected Node FindChild(Node node, IOperator op)</Member>
+        <Member type="Method">protected Boolean CheckIfSolution(Node node)</Member>
         <Modifier>Abstract</Modifier>
       </Entity>
       <Entity type="Interface">
@@ -221,7 +221,7 @@
         <Collapsed>False</Collapsed>
         <Member type="Field">private readonly Byte sideSize</Member>
         <Member type="Constructor">public Manhattan(Byte[] solution)</Member>
-        <Member type="Method">public override Int32 Heuristic(INode node)</Member>
+        <Member type="Method">public override Int32 Heuristic(Node node)</Member>
         <Member type="Method">private ValueTuple&lt;Byte, Byte&gt; TranslateCoordinate(Byte number)</Member>
         <Member type="Method">private Byte FindIndex(Byte number)</Member>
         <Modifier>None</Modifier>
@@ -234,7 +234,7 @@
         <Collapsed>False</Collapsed>
         <Member type="Property">protected Byte[] SolutionToFind { get; private set; }</Member>
         <Member type="Constructor">protected HeuristicProvider(Byte[] solution)</Member>
-        <Member type="Method">public abstract Int32 Heuristic(INode node)</Member>
+        <Member type="Method">public abstract Int32 Heuristic(Node node)</Member>
         <Modifier>Abstract</Modifier>
       </Entity>
       <Entity type="Class">
@@ -244,7 +244,7 @@
         <Size width="217" height="216" />
         <Collapsed>False</Collapsed>
         <Member type="Constructor">public Hamming(Byte[] solution)</Member>
-        <Member type="Method">public override Int32 Heuristic(INode node)</Member>
+        <Member type="Method">public override Int32 Heuristic(Node node)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -269,7 +269,7 @@
         <Collapsed>False</Collapsed>
         <Member type="Field">private List&lt;IOperator&gt; operatorsSequence</Member>
         <Member type="Field">private readonly Stopwatch stopwatch</Member>
-        <Member type="Property">public INode RootNode { get; private set; }</Member>
+        <Member type="Property">public Node RootNode { get; private set; }</Member>
         <Member type="Property">public IFinder Finder { get; set; }</Member>
         <Member type="Property">public Int32 Explored { get; }</Member>
         <Member type="Property">public Int32 Visited { get; }</Member>
@@ -278,7 +278,7 @@
         <Member type="Constructor">private GraphExplorer()</Member>
         <Member type="Method">public static GraphExplorer CreateGraphExplorer(Byte[] dimensions, Byte[] loadedRoot, Char[] operations)</Member>
         <Member type="Method">public static GraphExplorer CreateGraphExplorer(Byte[] dimensions, Byte[] loadedRoot, Char[] operations, IFinder finder)</Member>
-        <Member type="Method">public Boolean IsRootNode(INode node)</Member>
+        <Member type="Method">public Boolean IsRootNode(Node node)</Member>
         <Member type="Method">public String TraverseForSolution()</Member>
         <Modifier>None</Modifier>
       </Entity>

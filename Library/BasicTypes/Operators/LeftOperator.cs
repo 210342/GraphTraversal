@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Library.Interfaces;
 
 namespace Library.BasicTypes.Operators
@@ -20,13 +16,13 @@ namespace Library.BasicTypes.Operators
 
         private LeftOperator() { }
 
-        public override INode Move(INode node)
+        public override Node Move(Node node)
         {
             byte zeroIndex = node.State.ZeroIndex;
-            if(zeroIndex % node.State.Dimensions[0] != 0)
+            if (zeroIndex % node.State.Dimensions[0] != 0)
             {
-                IState state = node.State.CloneSwap(zeroIndex, (byte)(zeroIndex - 1));
-                INode parent = node;
+                NodeState state = node.State.CloneSwap(zeroIndex, (byte)(zeroIndex - 1));
+                Node parent = node;
                 IOperator lastOperator = Instance;
                 return new Node(parent, lastOperator, state, node.Depth + 1);
             }

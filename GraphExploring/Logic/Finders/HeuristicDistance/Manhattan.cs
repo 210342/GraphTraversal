@@ -1,44 +1,41 @@
-﻿using Library.Interfaces;
+﻿using System.Runtime.CompilerServices;
+using Library.BasicTypes;
 
 namespace GraphExploring.Logic.Finders.HeuristicDistance
 {
-    public class Manhattan : HeuristicProvider
+    public sealed class Manhattan(NodeState state) : HeuristicProvider(state.State)
     {
-        private readonly byte rowSize = 0;
-        public Manhattan(IState state) : base(state.State)
-        {
-            rowSize = state.Dimensions[0]; // 0 is row index
-        }
+        private readonly byte rowSize = state.Dimensions[0];
 
-        public override int Heuristic(INode node)
+        public override int Heuristic(Node node)
         {
             int sum = 0;
             for (byte i = 0; i < SolutionToFind.Length; ++i)
             {
                 byte number = node.State.State[i];
-                if(number != 0)
+                if (number != 0)
                 {
-                    var (currentx, currenty) = TranslateCoordinate(i);
-                    var (originx, originy) = TranslateCoordinate(FindIndex(number));
-                    sum += System.Math.Abs(originx - currentx) +
-                        System.Math.Abs(originy - currenty);
+                    var (currentX, currentY) = TranslateCoordinate(i);
+                    var (originX, originY) = TranslateCoordinate(FindIndex(number));
+                    sum += System.Math.Abs(originX - currentX) +
+                        System.Math.Abs(originY - currentY);
                 }
-                
             }
             return sum;
         }
-        private (byte X, byte Y) TranslateCoordinate(byte number)
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private (int X, int Y) TranslateCoordinate(byte number)
         {
-            byte X = (byte) (number % rowSize);
-            byte Y = (byte) (number / rowSize);
-            return (X, Y);
+            return (number % rowSize, number / rowSize);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private byte FindIndex(byte number)
         {
-            for(byte i = 0; i < SolutionToFind.Length; ++i)
+            for (byte i = 0; i < SolutionToFind.Length; ++i)
             {
-                if(SolutionToFind[i] == number)
+                if (SolutionToFind[i] == number)
                 {
                     return i;
                 }

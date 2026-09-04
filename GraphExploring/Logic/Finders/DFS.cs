@@ -1,22 +1,23 @@
 ﻿using System.Collections.Generic;
+using Library.BasicTypes;
 using Library.Interfaces;
 
 namespace GraphExploring.Logic.Finders
 {
-    public class DFS : AbstractFinder, IFinder
+    public sealed class DFS : AbstractFinder
     {
         private readonly int _depthLimit = 20;
-        private readonly Stack<INode> frontier = new();
+        private readonly Stack<Node> frontier = new();
 
-        public override IReadOnlyCollection<INode> Frontier { get { return frontier; } }
+        public override IReadOnlyCollection<Node> Frontier { get { return frontier; } }
 
-        public override System.Func<INode, List<IOperator>, byte[], INode> FindSolution => Algorithm;
+        public override System.Func<Node, List<IOperator>, byte[], Node> FindSolution => Algorithm;
 
-        public override System.Func<INode, int> HeuristicFunction => (_) => 1;
+        public override System.Func<Node, int> HeuristicFunction => (_) => 1;
 
-        private INode Algorithm(INode node, List<IOperator> operatorsSequence, byte[] expectedSolution)
+        private Node Algorithm(Node node, List<IOperator> operatorsSequence, byte[] expectedSolution)
         {
-            ExpectedSolution = expectedSolution;
+            _expectedSolution = expectedSolution;
             Explored.Add(node);
             if (CheckIfSolution(node))
             {
@@ -27,7 +28,7 @@ namespace GraphExploring.Logic.Finders
             {
                 foreach (IOperator op in operatorsSequence)
                 {
-                    INode kid = FindChild(node, op);
+                    Node kid = FindChild(node, op);
                     if (kid != null)
                     {
                         Depth = kid.Depth;

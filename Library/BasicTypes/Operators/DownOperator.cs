@@ -16,13 +16,13 @@ namespace Library.BasicTypes.Operators
 
         private DownOperator() { }
 
-        public override INode Move(INode node)
+        public override Node Move(Node node)
         {
             byte zeroIndex = node.State.ZeroIndex;
-            if (zeroIndex < node.State.StateSize - node.State.Dimensions[1])
+            if (zeroIndex < node.State.State.Length - node.State.Dimensions[1])
             {
-                IState state = node.State.CloneSwap(zeroIndex, (byte)(zeroIndex + node.State.Dimensions[1]));
-                INode parent = node;
+                NodeState state = node.State.CloneSwap(zeroIndex, (byte)(zeroIndex + node.State.Dimensions[1]));
+                Node parent = node;
                 IOperator lastOperator = Instance;
                 return new Node(parent, lastOperator, state, node.Depth + 1);
             }

@@ -1,8 +1,10 @@
-﻿namespace Library.Interfaces
+﻿using Library.BasicTypes;
+
+namespace Library.Interfaces
 {
     public interface IOperator
     {
         char Representation { get; }
-        INode Move(INode node);
+        Node Move(Node node);
     }
 }

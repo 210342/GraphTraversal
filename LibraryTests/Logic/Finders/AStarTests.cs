@@ -1,5 +1,4 @@
-﻿using Xunit;
-using GraphExploring.Logic.Finders.HeuristicDistance;
+﻿using GraphExploring.Logic.Finders.HeuristicDistance;
 using Library.Interfaces;
 using System.Diagnostics.CodeAnalysis;
 using Library.BasicTypes;
@@ -17,7 +16,7 @@ namespace GraphExploring.Logic.Finders.Tests
             OperatorsCollection.GetOperator('u');
         }
 
-        private readonly IState solution = new NodeState([4, 4],
+        private readonly NodeState solution = new([4, 4],
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0]);
 
         [Fact]

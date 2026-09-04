@@ -15,14 +15,14 @@ namespace Library.BasicTypes.Operators
         public override char Representation { get { return 'u'; } }
         private UpOperator() { }
 
-        public override INode Move(INode node)
+        public override Node Move(Node node)
         {
             byte zeroIndex = node.State.ZeroIndex;
             if (zeroIndex >= node.State.Dimensions[1])
             {
-                IState state = node.State.CloneSwap(zeroIndex, 
+                NodeState state = node.State.CloneSwap(zeroIndex,
                     (byte)(zeroIndex - node.State.Dimensions[1]));
-                INode parent = node;
+                Node parent = node;
                 IOperator lastOperator = Instance;
                 return new Node(parent, lastOperator, state, node.Depth + 1);
             }

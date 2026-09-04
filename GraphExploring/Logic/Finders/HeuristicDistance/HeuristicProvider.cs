@@ -1,16 +1,11 @@
-﻿using Library.Interfaces;
+﻿using Library.BasicTypes;
 
 namespace GraphExploring.Logic.Finders.HeuristicDistance
 {
-    public abstract class HeuristicProvider
+    public abstract class HeuristicProvider(byte[] solution)
     {
-        protected byte[] SolutionToFind { get; private set; }
+        protected byte[] SolutionToFind { get; private set; } = solution;
 
-        protected HeuristicProvider(byte[] solution)
-        {
-            SolutionToFind = solution;
-        }
-
-        public abstract int Heuristic(INode node);
+        public abstract int Heuristic(Node node);
     }
 }

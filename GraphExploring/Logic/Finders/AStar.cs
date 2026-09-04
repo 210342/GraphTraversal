@@ -1,28 +1,24 @@
 ﻿using GraphExploring.Logic.Finders.HeuristicDistance;
+using Library.BasicTypes;
 using Library.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace GraphExploring.Logic.Finders
 {
-    public class AStar : AbstractFinder
+    public sealed class AStar(HeuristicProvider heuristicProvider) : AbstractFinder
     {
-        private readonly LinkedList<INode> frontier = new();
+        private readonly LinkedList<Node> frontier = new();
 
-        public override IReadOnlyCollection<INode> Frontier { get { return frontier; } }
+        public override IReadOnlyCollection<Node> Frontier { get { return frontier; } }
 
-        public override Func<INode, int> HeuristicFunction { get; }
+        public override Func<Node, int> HeuristicFunction { get; } = heuristicProvider.Heuristic;
 
-        public override Func<INode, List<IOperator>, byte[], INode> FindSolution => Algorithm;
+        public override Func<Node, List<IOperator>, byte[], Node> FindSolution => Algorithm;
 
-        public AStar(HeuristicProvider heuristicProvider)
+        private Node Algorithm(Node node, List<IOperator> operatorsSequence, byte[] expectedSolution)
         {
-            HeuristicFunction = heuristicProvider.Heuristic;
-        }
-
-        private INode Algorithm(INode node, List<IOperator> operatorsSequence, byte[] expectedSolution)
-        {
-            ExpectedSolution = expectedSolution;
+            _expectedSolution = expectedSolution;
             frontier.AddFirst(node);
             Explored.Add(node);
             if (CheckIfSolution(node))
@@ -34,7 +30,7 @@ namespace GraphExploring.Logic.Finders
             {
                 foreach (IOperator op in operatorsSequence)
                 {
-                    INode kid = FindChild(node, op);
+                    Node kid = FindChild(node, op);
                     if(kid != null)
                     {
                         Depth = kid.Depth;
@@ -52,7 +48,7 @@ namespace GraphExploring.Logic.Finders
                             }
                             else
                             {
-                                LinkedListNode<INode> InsertAfter = frontier.First;
+                                LinkedListNode<Node> InsertAfter = frontier.First;
                                 while (InsertAfter.Next != null && kid.SummedCost > InsertAfter.Next.Value.SummedCost)
                                 {
                                     InsertAfter = InsertAfter.Next;

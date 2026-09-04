@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace GraphExploring.Logic
 {
-    public class OperatorsCollection
+    public sealed class OperatorsCollection
     {
         private OperatorsCollection() { }
 
@@ -37,6 +37,7 @@ namespace GraphExploring.Logic
             }
             return null;
         }
+
         public static IOperator GetReverse(IOperator op)
         {
             if (op == null)

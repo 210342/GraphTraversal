@@ -12,22 +12,22 @@ namespace GraphExploring.Logic
         private readonly List<IOperator> operatorsSequence = [];
         private readonly Stopwatch stopwatch = new();
 
-        public INode RootNode { get; private set; }
+        public Node RootNode { get; private set; }
         public IFinder Finder { get; set; }
-        public IState TargetState { get; set; }
-        public int Explored { get { return Finder.Explored.Count - Finder.Frontier.Count; } }
-        public int Visited { get { return Finder.Explored.Count; } }
+        public NodeState TargetState { get; set; }
+        public int Explored => Finder.Explored.Count - Finder.Frontier.Count;
+        public int Visited => Finder.Explored.Count;
         public int MaximumRecursionDepth { get { return Finder.MaximumDepthReached; } }
         public long TimeSpanInNanoseconds { get; private set; }
 
         public static GraphExplorer CreateGraphExplorer(byte[] dimensions, byte[] loadedRoot, char[] operations)
         {
-            HashSet<byte> bytesFiltered = new(loadedRoot);
+            HashSet<byte> bytesFiltered = [.. loadedRoot];
             if (bytesFiltered.Count != loadedRoot.Length)
                 throw new InvalidOperationException("Numbers arent unique.");
             GraphExplorer graphExplorer = new();
-            IState state = new NodeState(dimensions, loadedRoot);
-            INode node = new Node(null, null, state, depth: 0);
+            NodeState state = new(dimensions, loadedRoot);
+            Node node = new Node(null, null, state, depth: 0);
             graphExplorer.RootNode = node;
             foreach(char op in operations)
             {
@@ -48,9 +48,9 @@ namespace GraphExploring.Logic
             return explorer;
         }
 
-        public bool IsRootNode(INode node)
+        public static bool IsRootNode(Node node)
         {
-            return node.Parent == null;
+            return node.Parent is null;
         }
 
         public string TraverseForSolution()
@@ -60,13 +60,13 @@ namespace GraphExploring.Logic
                 throw new InvalidOperationException("Can't traverse with null finder, please assign Finder property.");
             }
 
-            INode solution = null;
+            Node solution = null;
             try
             {
                 stopwatch.Start();
                 solution = Finder.FindSolution(RootNode, operatorsSequence, TargetState.State);
                 stopwatch.Stop();
-                long nanosecPerTick = (1000000000) / Stopwatch.Frequency;
+                long nanosecPerTick = 1000000000 / Stopwatch.Frequency;
                 TimeSpanInNanoseconds = stopwatch.ElapsedTicks * nanosecPerTick;
             }
             catch(Exception e)
@@ -79,7 +79,7 @@ namespace GraphExploring.Logic
             StringBuilder sb = new();
             if (solution != null)
             {
-                INode currNode = solution;
+                Node currNode = solution;
                 while (currNode.Parent != null)
                 {
                     sb.Append(currNode.LastOperation.Representation);

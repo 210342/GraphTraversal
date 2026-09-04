@@ -22,9 +22,10 @@ namespace ConsoleEndpoint
                 string dataFile = args[4];
                 string operations = null;
                 string solutionPath = "solution.txt";
-                IState solutionState;
+                NodeState solutionState;
                 byte[] dimensions, root;
                 (dimensions, root) = LoadInputFile(inputFile);
+                int stateSize = dimensions[0] * dimensions[1];
                 if (File.Exists(solutionPath))
                 {
                     byte[] solutionDimensions, state;
@@ -33,13 +34,12 @@ namespace ConsoleEndpoint
                 }
                 else
                 {
-                    byte limit = (byte)(dimensions[0] * dimensions[1]);
-                    byte[] solutionArray = new byte[limit];
-                    for(byte i = 0; i < limit - 1; ++i)
+                    byte[] solutionArray = new byte[stateSize];
+                    for(byte i = 0; i < stateSize - 1; ++i)
                     {
                         solutionArray[i] = (byte)(i + 1);
                     }
-                    solutionArray[limit - 1] = 0;
+                    solutionArray[stateSize - 1] = 0;
                     solutionState = new NodeState(dimensions, solutionArray);
                 }
                 try

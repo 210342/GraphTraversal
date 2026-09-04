@@ -1,8 +1,5 @@
-﻿using Xunit;
-using System;
-using Library.BasicTypes;
+﻿using Library.BasicTypes;
 using Library.BasicTypes.Operators;
-using Library.Interfaces;
 using GraphExploring.Logic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -37,7 +34,7 @@ namespace Library.Logic.Tests
             GraphExplorer ge = GraphExplorer.CreateGraphExplorer([4, 4],
                 [1, 2, 3, 0],
                 ['l', 'r']);
-            Assert.True(ge.IsRootNode(new Node(null, null, new NodeState([1, 1],
+            Assert.True(GraphExplorer.IsRootNode(new Node(null, null, new NodeState([1, 1],
                 [0, 1]), 0)));
         }
 
@@ -46,8 +43,8 @@ namespace Library.Logic.Tests
         {
             GraphExplorer ge = GraphExplorer.CreateGraphExplorer([2, 2],
                     [1, 2, 3, 4], ['l', 'r']);
-            INode parent = new Node(null, null, new NodeState([1, 1], [0, 1]), 0);
-            Assert.False(ge.IsRootNode(new Node(parent, DownOperator.Instance, new NodeState([1, 1],
+            Node parent = new Node(null, null, new NodeState([1, 1], [0, 1]), 0);
+            Assert.False(GraphExplorer.IsRootNode(new Node(parent, DownOperator.Instance, new NodeState([1, 1],
                 [0, 1]), 1)));
         }
     }

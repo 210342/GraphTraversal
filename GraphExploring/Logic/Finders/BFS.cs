@@ -1,46 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
+using Library.BasicTypes;
 using Library.Interfaces;
 
 namespace GraphExploring.Logic.Finders
 {
-    public class BFS : AbstractFinder
+    public sealed class BFS : AbstractFinder
     {
-        private readonly Queue<INode> frontier = new();
+        private readonly Queue<Node> frontier = new();
 
-        public override IReadOnlyCollection<INode> Frontier { get { return frontier; } }
+        public override IReadOnlyCollection<Node> Frontier { get { return frontier; } }
 
-        public override Func<INode, List<IOperator>, byte[], INode> FindSolution => Algorithm;
+        public override Func<Node, List<IOperator>, byte[], Node> FindSolution => Algorithm;
 
-        public override Func<INode, int> HeuristicFunction => (_) => 1;
+        public override Func<Node, int> HeuristicFunction => (_) => 1;
 
 
-        private INode Algorithm(INode node, List<IOperator> operatorsSequence, byte[] expectedSolution)
+        private Node Algorithm(Node node, List<IOperator> operatorsSequence, byte[] expectedSolution)
         {
-            ExpectedSolution = expectedSolution;
+            _expectedSolution = expectedSolution;
             Explored.Add(node);
-            if(CheckIfSolution(node))
+            if (CheckIfSolution(node))
             {
                 return node;
             }
 
             while (true)
             {
-                foreach(IOperator op in operatorsSequence)
+                foreach (IOperator op in operatorsSequence)
                 {
-                    INode kid = FindChild(node, op);
-                    if(kid != null)
+                    Node kid = FindChild(node, op);
+                    if (kid == null)
                     {
-                        Depth = kid.Depth;
-                        if (CheckIfSolution(kid))
-                        {
-                            return kid;
-                        }
-                        else if (!Explored.Contains(kid))
-                        {
-                            frontier.Enqueue(kid);
-                            Explored.Add(kid);
-                        }
+                        continue;
+                    }
+                    Depth = kid.Depth;
+                    if (CheckIfSolution(kid))
+                    {
+                        return kid;
+                    }
+                    else if (!Explored.Contains(kid))
+                    {
+                        frontier.Enqueue(kid);
+                        Explored.Add(kid);
                     }
                 }
                 node = frontier.Dequeue();

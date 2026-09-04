@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
+using Library.BasicTypes;
 
 namespace Library.Interfaces
 {
     public interface IFinder
     {
-        IReadOnlyCollection<INode> Frontier { get; }
-        HashSet<INode> Explored { get; }
+        IReadOnlyCollection<Node> Frontier { get; }
+        HashSet<Node> Explored { get; }
         int MaximumDepthReached { get; }
-        System.Func<INode, int> HeuristicFunction { get; }
-        System.Func<INode, List<IOperator>, byte[], INode> FindSolution { get; }
+        System.Func<Node, int> HeuristicFunction { get; }
+        System.Func<Node, List<IOperator>, byte[], Node> FindSolution { get; }
     }
 }
