@@ -1,0 +1,6 @@
+<Solution>
+    <Project Path="GraphExploring\GraphExploring.csproj" />
+    <Project Path="GraphTraversal\GraphTraversal.csproj" />
+    <Project Path="Library\Library.csproj" />
+    <Project Path="LibraryTests\LibraryTests.csproj" />
+</Solution>

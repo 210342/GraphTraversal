@@ -7,17 +7,17 @@ namespace GraphExploring.Logic.Finders
 {
     public abstract class AbstractFinder : IFinder
     {
-        public byte[] ExpectedSolution { get; protected set; } = new byte[]
-        {
+        public byte[] ExpectedSolution { get; protected set; } =
+        [
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0
-        };
+        ];
 
 
         #region Properties
         private int depth = 0;
         public abstract IReadOnlyCollection<INode> Frontier { get; }
 
-        public HashSet<INode> Explored { get; } = new HashSet<INode>();
+        public HashSet<INode> Explored { get; } = [];
         public int Depth
         {
             get
@@ -48,7 +48,7 @@ namespace GraphExploring.Logic.Finders
         protected IList<INode> FindChildren(INode node, List<IOperator> operatorsSequence)
         {
             int opCount = operatorsSequence.Count();
-            List<INode> result = new List<INode>();
+            List<INode> result = [];
             for (int i = 0; i < opCount; ++i)
             {
                 IOperator reverseOp = OperatorsCollection.GetReverse(node.LastOperation);

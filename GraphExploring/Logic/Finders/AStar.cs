@@ -7,7 +7,7 @@ namespace GraphExploring.Logic.Finders
 {
     public class AStar : AbstractFinder
     {
-        private readonly LinkedList<INode> frontier = new LinkedList<INode>();
+        private readonly LinkedList<INode> frontier = new();
 
         public override IReadOnlyCollection<INode> Frontier { get { return frontier; } }
 
